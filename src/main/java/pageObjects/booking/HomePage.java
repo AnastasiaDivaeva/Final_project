@@ -3,6 +3,9 @@ package pageObjects.booking;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.conditions.Exist;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -25,9 +28,7 @@ public class HomePage {
     }
 
     public void closePopUp() {
-        if ($x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").exists()) {
-            $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
-        }
+        $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").shouldBe(Exist.exist, Duration.ofSeconds(10)).click();
     }
 
     public void closePopUPData() {
@@ -63,5 +64,13 @@ public class HomePage {
 
     public String getTextAfterChangeLanguage() {
         return $x("//span[@data-testid='herobanner-title1']").getText();
+    }
+
+    public void clickOnHeaderProfile() {
+        $x("//div[@data-active-button-classname='bui-button--active']").shouldBe(Condition.visible).click();
+    }
+
+    public void chooseAccountManagement() {
+        $x("//span[contains(text(),'Керувати акаунтом')]").click();
     }
 }

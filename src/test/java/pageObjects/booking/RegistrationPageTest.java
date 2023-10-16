@@ -1,14 +1,19 @@
 package pageObjects.booking;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.util.UUID;
+
+import static com.codeborne.selenide.Selenide.$x;
+
 public class RegistrationPageTest {
 
     @AfterMethod
-    public void closeDriver(){
+    public void closeDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -46,5 +51,16 @@ public class RegistrationPageTest {
         registrationPage.enterPasswordInField();
         registrationPage.enterIncorrectlyPasswordConfirmation();
         Assert.assertTrue(registrationPage.notificationIncorrectlyOfPasswords());
+    }
+
+    @Test
+    public void registrationNewUser() {
+        String randomEmail = UUID.randomUUID() + "@gmail.com";
+        HomePage homePage = new HomePage();
+        homePage.openHomePage();
+        homePage.closePopUp();
+        RegistrationPage registrationPage = new RegistrationPage();
+        registrationPage.signUpToTheSite(randomEmail, "123456789Er");
+        Assert.assertTrue(registrationPage.isDisplayedHeaderProfile());
     }
 }
