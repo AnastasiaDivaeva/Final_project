@@ -6,11 +6,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import pageObjects.booking.HomePage;
-import pageObjects.booking.SearchResultPage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchResultPageTest {
 
@@ -26,7 +21,7 @@ public class SearchResultPageTest {
         homePage.closePopUp();
         homePage.searchCity(city);
         homePage.clickSearchButton();
-        homePage.closePopUPData();
+        homePage.closeCalendar();
         SearchResultPage searchResultPage = new SearchResultPage();
         String searchResultTitleValue = searchResultPage.getResultSearchTitle();
         Assert.assertTrue(searchResultTitleValue.contains(city));
@@ -41,7 +36,7 @@ public class SearchResultPageTest {
         homePage.closePopUp();
         homePage.searchCity(city);
         homePage.clickSearchButton();
-        homePage.closePopUPData();
+        homePage.closeCalendar();
         SearchResultPage searchResultPage = new SearchResultPage();
         ElementsCollection addressElements = searchResultPage.getResultSearchThatHotelsSortedByLocation();
         for (SelenideElement hotelAddress : addressElements) {
