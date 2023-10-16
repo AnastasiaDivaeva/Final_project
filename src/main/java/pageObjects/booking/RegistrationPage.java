@@ -1,3 +1,5 @@
+package pageObjects.booking;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RegistrationPage {

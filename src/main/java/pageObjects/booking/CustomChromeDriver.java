@@ -1,3 +1,5 @@
+package pageObjects.booking;
+
 import com.codeborne.selenide.WebDriverProvider;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -27,14 +29,16 @@ public class CustomChromeDriver implements WebDriverProvider {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");
-        chromeOptions.addArguments("start-maximized");
+//        chromeOptions.addArguments("start-maximized");
 //        chromeOptions.addArguments("--headless", "--window-size=1920,1080");
-        chromeOptions.addArguments("no-sandbox");
-        chromeOptions.addArguments("start-fullscreen");
-        chromeOptions.addArguments("single-process");
-        chromeOptions.addArguments("disable-dev-shm-usage");
-        chromeOptions.addArguments("incognito");
-        chromeOptions.addArguments("disable-infobars");
+//        chromeOptions.addArguments("no-sandbox");
+//        chromeOptions.addArguments("start-fullscreen");
+//        chromeOptions.addArguments("single-process");
+//        chromeOptions.addArguments("disable-dev-shm-usage");
+//        chromeOptions.addArguments("incognito");
+//        chromeOptions.addArguments("disable-infobars");
+
+        capabilities.asMap().forEach(chromeOptions::setCapability);
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 

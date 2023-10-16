@@ -1,7 +1,17 @@
+package pageObjects.booking;
+
+import com.codeborne.selenide.Selenide;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import pageObjects.booking.HomePage;
 
 public class HomePageTest {
+
+    @AfterMethod
+    public void closeDriver(){
+        Selenide.closeWebDriver();
+    }
     @Test
     public void checkOutThePopUpsThatAppearWithPopularDestinations(){
         HomePage homePage = new HomePage();

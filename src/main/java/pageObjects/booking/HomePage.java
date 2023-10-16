@@ -1,3 +1,5 @@
+package pageObjects.booking;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -14,7 +16,6 @@ public class HomePage {
     }
 
     public void openHomePage() {
-        Configuration.holdBrowserOpen = false;
         Configuration.browser = CustomChromeDriver.class.getName();
         Selenide.open("https://www.booking.com/uk/");
     }
@@ -24,7 +25,9 @@ public class HomePage {
     }
 
     public void closePopUp() {
-        $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
+        if ($x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").exists()) {
+            $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
+        }
     }
 
     public void closePopUPData() {

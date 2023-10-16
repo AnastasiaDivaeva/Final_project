@@ -1,8 +1,16 @@
+package pageObjects.booking;
+
+import com.codeborne.selenide.Selenide;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class RegistrationPageTest {
 
+    @AfterMethod
+    public void closeDriver(){
+        Selenide.closeWebDriver();
+    }
 
     @Test
     public void verificationOfRegistrationWithAnIncorrectEmailAddress() {

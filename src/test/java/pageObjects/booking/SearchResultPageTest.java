@@ -1,12 +1,23 @@
+package pageObjects.booking;
+
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import pageObjects.booking.HomePage;
+import pageObjects.booking.SearchResultPage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResultPageTest {
+
+    @AfterMethod
+    public void closeDriver(){
+        Selenide.closeWebDriver();
+    }
     @Test
     public void checkThatTitleContainsNameCityFromSearching() {
         String city = "Львів";

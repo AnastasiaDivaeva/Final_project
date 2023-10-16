@@ -1,11 +1,22 @@
+package pageObjects.booking;
+
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import pageObjects.booking.HomePage;
+import pageObjects.booking.SortingProposalPage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SortingProposalsPageTest {
+
+    @AfterMethod
+    public void closeDriver(){
+        Selenide.closeWebDriver();
+    }
 
     @Test
     public void sortingProposalPageTest() {
