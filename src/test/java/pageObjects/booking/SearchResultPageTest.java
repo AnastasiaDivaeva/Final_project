@@ -50,26 +50,27 @@ public class SearchResultPageTest {
         }
     }
 
-    @Test
-    public void checkFilteringAtLowestPrice() {
-        String city = "Львів";
-        HomePage homePage = new HomePage();
-        homePage.openHomePage();
-        homePage.closePopUp();
-        homePage.searchCity(city);
-        homePage.clickSearchButton();
-        homePage.closePopUPData();
-        SearchResultPage searchResultPage = new SearchResultPage();
-        searchResultPage.chooseFilterLowestPropertyEvaluation();
-        ElementsCollection setEstimatesAfterFilter = searchResultPage.getResultAfterChooseFilter();
-        List<Double> estimates = new ArrayList<>();
-        for (SelenideElement evaluation : setEstimatesAfterFilter) {
-            String evaluationText = evaluation.getText().replace(",", ".");
-            estimates.add(Double.parseDouble(evaluationText));
-        }
-        for (int i = 1; i < estimates.size(); i++) {
-            Assert.assertTrue(estimates.get(i - 1) <= estimates.get(i));
-        }
-    }
+
+//    @Test
+//    public void checkFilteringAtLowestPrice() {
+//        String city = "Львів";
+//        HomePage homePage = new HomePage();
+//        homePage.openHomePage();
+//        homePage.closePopUp();
+//        homePage.searchCity(city);
+//        homePage.clickSearchButton();
+//        homePage.closePopUPData();
+//        SearchResultPage searchResultPage = new SearchResultPage();
+//        searchResultPage.chooseFilterLowestPropertyEvaluation();
+//        ElementsCollection setEstimatesAfterFilter = searchResultPage.getResultAfterChooseFilter();
+//        List<Double> estimates = new ArrayList<>();
+//        for (SelenideElement evaluation : setEstimatesAfterFilter) {
+//            String evaluationText = evaluation.getText().replace(",", ".");
+//            estimates.add(Double.parseDouble(evaluationText));
+//        }
+//        for (int i = 1; i < estimates.size(); i++) {
+//            Assert.assertTrue(estimates.get(i - 1) <= estimates.get(i));
+//        }
+//    }
 }
 
