@@ -4,13 +4,15 @@
     <test name="All Test Suite">
         <classes>
             <class name="pageObjects.booking.CarRentalPageTest" />
-            <class name="pageObjects.booking.DetailPage" />
+            <class name="pageObjects.booking.DetailPageTest" />
             <class name="pageObjects.booking.HomePageTest" />
             <class name="pageObjects.booking.RegistrationPageTest" />
             <class name="pageObjects.booking.SearchResultPageTest" />
             <class name="pageObjects.booking.SortingProposalsPageTest" />
             <class name="pageObjects.booking.UserProfilePageTest" />
             <class name="pageObjects.booking.BookingPageTest" />
+            <class name="pageObjects.booking.LeisureSearchPageTest" />
+
         </classes>
     </test>
 </suite>

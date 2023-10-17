@@ -52,7 +52,7 @@ public class RegistrationPage {
     }
 
     public void logInToTheSite(String login, String password) {
-        $x("//a[@data-testid='header-sign-up-button']").click();
+        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='password']").setValue(password);
         $x("//button[@type='submit']").click();

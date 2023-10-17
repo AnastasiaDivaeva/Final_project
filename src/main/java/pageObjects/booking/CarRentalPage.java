@@ -1,11 +1,8 @@
 package pageObjects.booking;
 
-import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.HoverOptions;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -29,6 +26,12 @@ public class CarRentalPage {
 
     public String getResultSearchTitle() {
         return $x("//h1[@data-testid='page-title']").shouldBe(Condition.visible).getText();
+    }
+    public void clickOnLowestPrice(){
+        $x("//label[@for=':r1o:-PRICE']").shouldBe(Condition.visible).click();
+    }
+    public ElementsCollection getResultSearchCarsForLowestPrice(){
+        return $$x("//div[@class='SM_7d1e8d72 SM_2fdb9657']");
     }
 
 }

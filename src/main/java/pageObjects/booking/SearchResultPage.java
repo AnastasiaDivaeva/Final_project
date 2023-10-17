@@ -27,6 +27,18 @@ public class SearchResultPage {
     public void chooseHotel() {
         $x("//div[@data-testid='title']").shouldBe(Condition.visible).click();
     }
+    public void clickOnSaveButton(){
+        $x("//span[@data-testid='wishlist-icon']").click();
+    }
+    public boolean  itemHasBeenAddedFavorites(){
+        return $x("//div[@data-testid='wishlist-popover-content']").shouldBe(Condition.visible).isDisplayed();
+    }
+    public void clickOnCard(){
+        $x("//div[@class='b546c9ed2b']//button[@type='button']").click();
+    }
+    public boolean cardHasOpen() {
+        return  $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
+    }
 
 }
 

@@ -60,7 +60,7 @@ public class HomePage {
     }
 
     public void searchCity(String city) {
-        $x("//div[@data-testid='destination-container']").click();
+        $x("//div[@data-testid='destination-container']").shouldBe(Condition.visible).click();
         $x("//input[@class='eb46370fe1']").setValue(city);
     }
 
@@ -75,7 +75,7 @@ public class HomePage {
     }
 
     public void clickCarRentalButton() {
-        $x("//a[@id='cars']").click();
+        $x("//a[@id='cars']").shouldBe(Condition.visible).click();
     }
 
     public void chooseAnotherLanguage() {
@@ -97,6 +97,6 @@ public class HomePage {
     }
 
     public void clickLeisureSearch() {
-        $x("//a[@id='attractions']").click();
+        $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
     }
 }

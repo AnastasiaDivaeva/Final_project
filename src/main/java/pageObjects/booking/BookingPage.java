@@ -8,9 +8,6 @@ public class BookingPage {
     }
 
     public double getPrice() {
-//        $x("//span[@data-animate-price-group-name='bp_user_total_price']").getText().replaceAll("UAH", "")
-//                .replaceAll(" ", "");
-
         String priceText = $x("//span[@data-animate-price-group-name='bp_user_total_price']").getText();
         String cleanPrice = priceText
                 .replaceAll("UAH", "")
