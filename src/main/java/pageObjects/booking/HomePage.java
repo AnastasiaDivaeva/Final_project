@@ -3,8 +3,10 @@ package pageObjects.booking;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.conditions.Exist;
 import com.codeborne.selenide.ex.ElementNotFound;
+import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
 
@@ -28,12 +30,20 @@ public class HomePage {
         $x("//a[@data-testid='header-sign-up-button']").click();
     }
 
-    public void closePopUp() {
-        try{
-            $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").shouldBe(Exist.exist, Duration.ofSeconds(10)).click();
-        }catch (ElementNotFound ignored) {
+    public void closePopUp(WebDriver driver) {
+        new Thread(() -> {
+            while(true) {
+                try {
+                    WebDriverRunner.setWebDriver(driver);
+                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
+                            .shouldBe(Exist.exist, Duration.ofSeconds(1))
+                            .click();
+                    return;
+                } catch (ElementNotFound ignored) {
 
-        }
+                }
+            }
+        }).start();
     }
 
     public void closeCalendar() {
@@ -82,11 +92,11 @@ public class HomePage {
     }
 
 
-
     public void chooseAccountManagement() {
         $x("//span[contains(text(),'Керувати акаунтом')]").click();
     }
-    public void clickLeisureSearch(){
+
+    public void clickLeisureSearch() {
         $x("//a[@id='attractions']").click();
     }
 }

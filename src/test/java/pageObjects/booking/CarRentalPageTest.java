@@ -1,6 +1,7 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class CarRentalPageTest {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp();
+        homePage.closePopUp(WebDriverRunner.getWebDriver());
         homePage.clickCarRentalButton();
         CarRentalPage carRentalPage = new CarRentalPage();
         carRentalPage.sendPickupLocation(location);

@@ -3,6 +3,7 @@ package pageObjects.booking;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class SearchResultPageTest {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp();
+        homePage.closePopUp(WebDriverRunner.getWebDriver());
         homePage.searchCity(city);
         homePage.clickSearchButton();
         homePage.closeCalendar();
@@ -33,7 +34,7 @@ public class SearchResultPageTest {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp();
+        homePage.closePopUp(WebDriverRunner.getWebDriver());
         homePage.searchCity(city);
         homePage.clickSearchButton();
         homePage.closeCalendar();

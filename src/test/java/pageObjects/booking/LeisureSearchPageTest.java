@@ -1,5 +1,6 @@
 package pageObjects.booking;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,7 +10,7 @@ public class LeisureSearchPageTest {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp();
+        homePage.closePopUp(WebDriverRunner.getWebDriver());
         homePage.clickLeisureSearch();
         LeisureSearchPage leisureSearchPage=new LeisureSearchPage();
         leisureSearchPage.clickOnLeisureSearch(location);
