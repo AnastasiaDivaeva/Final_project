@@ -33,6 +33,6 @@ public class UserProfilePageTest {
         String updatedName = newFirstName + " " + newLastName;
         String foundUpdatedUsername = userProfilePage.getTextAfterChangeUserName();
 
-        Assert.assertTrue(foundUpdatedUsername.contains(updatedName));
+        Assert.assertEquals(foundUpdatedUsername, updatedName);
     }
 }
