@@ -31,7 +31,8 @@ public class CustomChromeDriver implements WebDriverProvider {
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");
 //        chromeOptions.addArguments("start-maximized");
 //        chromeOptions.addArguments("headless");
-        chromeOptions.addArguments("window-size=1920,1080");
+        chromeOptions.addArguments("--headless=new");
+        chromeOptions.addArguments("--window-size=2560,1440");
 //        chromeOptions.addArguments("no-sandbox");
 //        chromeOptions.addArguments("start-fullscreen");
 //        chromeOptions.addArguments("single-process");
