@@ -8,6 +8,8 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +25,12 @@ public class LeisureSearchPage {
     }
 
     @Step("Set the date in the search bar")
-    public void setDate(String startDate, String endDate) {
+    public void setDate(LocalDate startDate, LocalDate endDate) {
+        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
+        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
         $x("//div[@class='css-ck8kih']").click();
-        $x("//span[@data-date='" + startDate + "']").click();
-        $x("//span[@data-date='" + endDate + "']").click();
+        $x("//span[@data-date='" + startDateString + "']").click();
+        $x("//span[@data-date='" + endDateString + "']").click();
     }
 
     @Step("Get name city ")

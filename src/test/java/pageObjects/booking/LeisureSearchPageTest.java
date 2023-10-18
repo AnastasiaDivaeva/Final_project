@@ -6,6 +6,7 @@ import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,9 @@ public class LeisureSearchPageTest {
         homePage.closePopUp();
         homePage.clickLeisure();
         LeisureSearchPage leisureSearchPage = new LeisureSearchPage();
-        leisureSearchPage.setDate("2023-11-26", "2023-11-27");
+        leisureSearchPage.setDate(
+                LocalDate.now().plusWeeks(2),
+                LocalDate.now().plusWeeks(2).plusDays(4));
         leisureSearchPage.clickOnLeisureSearch(location);
         String expected = leisureSearchPage.getTitleExpected();
         leisureSearchPage.clickOnEntertainment();
