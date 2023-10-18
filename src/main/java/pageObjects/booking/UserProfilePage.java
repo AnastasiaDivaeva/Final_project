@@ -15,12 +15,12 @@ public class UserProfilePage {
     @Step("Change user name")
     public void changeUsername(String newName, String newLastName) {
         $x("//div[@data-test-id='mysettings-row-name']//div[@class='comp-container__element']").click();
-        SelenideElement username = $x("//input[@name='first']").shouldBe(Condition.visible);
-        username.doubleClick();
-        username.sendKeys(newName);
         SelenideElement lastName = $x("//input[@name='last']").shouldBe(Condition.visible);
         lastName.doubleClick();
         lastName.sendKeys(newLastName);
+        SelenideElement username = $x("//input[@name='first']").shouldBe(Condition.visible);
+        username.doubleClick();
+        username.sendKeys(newName);
         $x("//button[@data-test-id='mysettings-btn-save']").click();
         $x("//input[@autocomplete='given-name']").shouldBe(Condition.hidden);
     }
