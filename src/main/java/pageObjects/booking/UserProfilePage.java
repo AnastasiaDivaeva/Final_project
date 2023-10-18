@@ -14,7 +14,7 @@ public class UserProfilePage {
 
     @Step("Change user name")
     public void changeUsername(String newName, String newLastName) {
-        $x("//button[@data-ga-label='Edit section: name']").click();
+        $x("//div[@data-test-id='mysettings-row-name']").click();
         SelenideElement username = $x("//input[@autocomplete='given-name']").shouldBe(Condition.visible);
         username.doubleClick();
         username.sendKeys(newName);
