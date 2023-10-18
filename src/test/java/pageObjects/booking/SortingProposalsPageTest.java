@@ -2,7 +2,6 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -21,7 +20,7 @@ public class SortingProposalsPageTest {
     public void sortingProposalPageTest() {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         SortingProposalPage sortingProposalPage = new SortingProposalPage();
         sortingProposalPage.setCityInSearchBar("Львів");
         sortingProposalPage.setDateInSearchBar("2023-11-05", "2023-11-10");

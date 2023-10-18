@@ -1,15 +1,11 @@
 package pageObjects.booking;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.util.UUID;
-
-import static com.codeborne.selenide.Selenide.$x;
 
 public class RegistrationPageTest {
 
@@ -22,7 +18,7 @@ public class RegistrationPageTest {
     public void verificationOfRegistrationWithAnIncorrectEmailAddress() {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickOnRegisterButton();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.enterIncorrectlyLogin();
@@ -33,7 +29,7 @@ public class RegistrationPageTest {
     public void verificationOfRegistrationWithAnIncorrectPassword() {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickOnRegisterButton();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.enterLoginInField();
@@ -45,7 +41,7 @@ public class RegistrationPageTest {
     public void verificationOfRegistrationWithAnIncorrectPasswordConfirmation() {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickOnRegisterButton();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.enterLoginInField();
@@ -59,7 +55,7 @@ public class RegistrationPageTest {
         String randomEmail = UUID.randomUUID() + "@gmail.com";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.signUpToTheSite(randomEmail, "123456789Er");
         Assert.assertTrue(registrationPage.isDisplayedHeaderProfile());

@@ -1,10 +1,14 @@
 package pageObjects.booking;
 
+import com.codeborne.selenide.Condition;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BookingPage {
     public boolean bookingInformation() {
-        return $x(" //div[@class='bui-date-range bui-date-range--large bp-date-range']").isDisplayed();
+        return $x("//div[@class='bui-date-range bui-date-range--large bp-date-range']")
+                .shouldBe(Condition.visible)
+                .isDisplayed();
     }
 
     public double getPrice() {

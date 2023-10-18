@@ -1,43 +1,41 @@
 package pageObjects.booking;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.$x;
+import java.time.LocalDate;
 
 public class SearchResultPageTest {
 
     @AfterMethod
-    public void closeDriver(){
+    public void closeDriver() {
         Selenide.closeWebDriver();
     }
+
     @Test
     public void checkThatTitleContainsNameCityFromSearching() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.searchCity(city);
         homePage.clickSearchButton();
         homePage.closeCalendar();
         SearchResultPage searchResultPage = new SearchResultPage();
         String searchResultTitleValue = searchResultPage.getResultSearchTitle();
         Assert.assertTrue(searchResultTitleValue.contains(city));
-
     }
 
     @Test
-    public void checkThatDisplaysHotelsThatMachTheCity() {
+    public void checkThatDisplaysHotelsThatMatchTheCity() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.searchCity(city);
         homePage.clickSearchButton();
         homePage.closeCalendar();
@@ -48,30 +46,38 @@ public class SearchResultPageTest {
             Assert.assertTrue(addressText.contains(city));
         }
     }
+
     @Test
-    public void checkThatCardOpens() {
+    public void checkThatMapIsOpened() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.searchCity(city);
-        homePage.setDateInSearchBar("2023-11-16", "2023-11-17");
+        homePage.setDateInSearchBar(
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
-        SearchResultPage searchResultPage=new SearchResultPage();
-        searchResultPage.clickOnCard();
+        SearchResultPage searchResultPage = new SearchResultPage();
+        searchResultPage.clickOnMap();
 
         Assert.assertTrue(searchResultPage.cardHasOpen());
     }
+
     @Test
-    public void checkWishList(){
+    public void checkWishList() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
-        homePage.searchCity(city);
-        homePage.setDateInSearchBar("2023-11-16", "2023-11-17");
-        homePage.clickSearchButton();
-        SearchResultPage searchResultPage=new SearchResultPage();
+        homePage.closePopUp();
+        RegistrationPage registrationPage = new RegistrationPage();
+        registrationPage.logInToTheSite("leraaa@gmail.com", "123456789Er");
+        homePage.searchCityAfterLogin(city);
+        homePage.setDateInSearchBarAfterLogin(
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusMonths(1).plusDays(3));
+        homePage.clickSearchButtonAfterLogin();
+        SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.clickOnSaveButton();
 
         Assert.assertTrue(searchResultPage.itemHasBeenAddedFavorites());

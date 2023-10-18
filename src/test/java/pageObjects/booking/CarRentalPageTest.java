@@ -3,7 +3,6 @@ package pageObjects.booking;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -19,43 +18,43 @@ public class CarRentalPageTest {
     }
 
     @Test
-    public void checkSearchCarPickupLocation() throws InterruptedException {
+    public void checkSearchCarPickupLocation() {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickCarRentalButton();
         CarRentalPage carRentalPage = new CarRentalPage();
         carRentalPage.sendPickupLocation(location);
-
         carRentalPage.clickSearchButton();
-        Thread.sleep(5000);
-        String resultSearchTitle = carRentalPage.getResultSearchTitle();
-        Assert.assertTrue(resultSearchTitle.contains(location));
+        String actualSearchTitle = carRentalPage.getResultSearchTitle();
+        Assert.assertTrue(actualSearchTitle.contains(location));
     }
 
     @Test
-    public void checkSearchCarsForLowestPrice() throws InterruptedException {
+    public void checkSearchCarsForLowestPrice() {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickCarRentalButton();
         CarRentalPage carRentalPage = new CarRentalPage();
         carRentalPage.sendPickupLocation(location);
 
         carRentalPage.clickSearchButton();
-        Thread.sleep(5000);
         carRentalPage.clickOnLowestPrice();
         ElementsCollection pricesAfterFilter = carRentalPage.getResultSearchCarsForLowestPrice();
         List<Double> prices = new ArrayList<>();
         for (SelenideElement price : pricesAfterFilter) {
-            String evaluationPrices = price.getText().replaceAll(",", ".").replaceAll("UAH", "").replaceAll("грн","");
+            String evaluationPrices = price.getText()
+                    .replaceAll(",", ".")
+                    .replaceAll("UAH", "")
+                    .replaceAll(" ", "")
+                    .replaceAll("грн","");
             prices.add(Double.parseDouble(evaluationPrices));
-            for (int i = 1; i < prices.size(); i++) {
-                Assert.assertTrue(prices.get(i) >= prices.get(i - 1));
-            }
-
+        }
+        for (int i = 1; i < prices.size(); i++) {
+            Assert.assertTrue(prices.get(i) >= prices.get(i - 1));
         }
     }
 }

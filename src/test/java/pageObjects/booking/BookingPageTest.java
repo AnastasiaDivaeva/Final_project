@@ -1,10 +1,11 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+
+import java.time.LocalDate;
 
 public class BookingPageTest {
     @AfterMethod
@@ -17,9 +18,11 @@ public class BookingPageTest {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.searchCity(city);
-        homePage.setDateInSearchBar("2023-11-16", "2023-11-16");
+        homePage.setDateInSearchBar(
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
@@ -35,9 +38,11 @@ public class BookingPageTest {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.searchCity(city);
-        homePage.setDateInSearchBar("2023-11-16", "2023-11-16");
+        homePage.setDateInSearchBar(
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();

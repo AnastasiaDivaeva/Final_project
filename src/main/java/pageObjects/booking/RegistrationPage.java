@@ -2,6 +2,7 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -57,20 +58,30 @@ public class RegistrationPage {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='password']").setValue(password);
-        Actions builder = new Actions(WebDriverRunner.getWebDriver());
-        builder.clickAndHold($x("//button[@type='submit']").getWrappedElement()).perform();
-//        $x("//button[@type='submit']").getWrappedElement().click();
+        clickAndHoldWebElement("//button[@type='submit']");
     }
 
     public void signUpToTheSite(String login, String password) {
-        $x("//a[@data-testid='header-sign-up-button']").click();
+        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='new_password']").setValue(password);
         $x("//input[@name='confirmed_password']").setValue(password);
-        $x("//button[@type='submit']").click();
+        clickAndHoldWebElement("//button[@type='submit']");
     }
 
     public boolean isDisplayedHeaderProfile() {
         return $x("//span[@class='bui-avatar-block__title']").shouldBe(Condition.exist).isDisplayed();
+    }
+
+    private void clickAndHoldWebElement(String xpath) {
+        Actions builder = new Actions(WebDriverRunner.getWebDriver());
+        WebElement submit = $x(xpath).getWrappedElement();
+        builder.clickAndHold(submit).perform();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        builder.release(submit).perform();
     }
 }

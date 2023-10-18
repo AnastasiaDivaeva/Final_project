@@ -3,12 +3,11 @@ package pageObjects.booking;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.conditions.Exist;
 import com.codeborne.selenide.ex.ElementNotFound;
-import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -27,23 +26,16 @@ public class HomePage {
     }
 
     public void clickOnRegisterButton() {
-        $x("//a[@data-testid='header-sign-up-button']").click();
+        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
     }
 
-    public void closePopUp(WebDriver driver) {
-        new Thread(() -> {
-            while(true) {
-                try {
-                    WebDriverRunner.setWebDriver(driver);
-                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
-                            .shouldBe(Exist.exist, Duration.ofSeconds(1))
-                            .click();
-                    return;
-                } catch (ElementNotFound ignored) {
-
-                }
-            }
-        }).start();
+    public void closePopUp() {
+        try {
+            $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
+                    .shouldBe(Condition.visible, Duration.ofSeconds(20))
+                    .click();
+        } catch (ElementNotFound ignored) {
+        }
     }
 
     public void closeCalendar() {
@@ -64,14 +56,33 @@ public class HomePage {
         $x("//input[@class='eb46370fe1']").setValue(city);
     }
 
-    public void setDateInSearchBar(String startDate, String endDate) {
+    public void searchCityAfterLogin(String city) {
+        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible).click();
+        $x("//input[@type='search']").setValue(city);
+    }
+
+    public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
+        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
+        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
         $x("//button[@data-testid='date-display-field-start']").click();
-        $x("//span[@data-date='" + startDate + "']").click();
-        $x("//span[@data-date='" + endDate + "']").click();
+        $x("//span[@data-date='" + startDateString + "']").click();
+        $x("//span[@data-date='" + endDateString + "']").click();
+    }
+
+    public void setDateInSearchBarAfterLogin(LocalDate startDate, LocalDate endDate) {
+        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
+        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
+        $x("//div[@class='xp__dates-inner']").click();
+        $x("//td[@data-date='" + startDateString + "']").click();
+        $x("//td[@data-date='" + endDateString + "']").click();
     }
 
     public void clickSearchButton() {
         $x("//button[@type='submit']").click();
+    }
+
+    public void clickSearchButtonAfterLogin() {
+        $x("//button[@data-sb-id='main']").click();
     }
 
     public void clickCarRentalButton() {

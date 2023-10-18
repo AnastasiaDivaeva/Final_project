@@ -4,6 +4,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
@@ -25,13 +27,16 @@ public class CarRentalPage {
     }
 
     public String getResultSearchTitle() {
-        return $x("//h1[@data-testid='page-title']").shouldBe(Condition.visible).getText();
+        return $x("//h1[@data-testid='page-title']").shouldBe(Condition.visible, Duration.ofSeconds(20)).getText();
     }
     public void clickOnLowestPrice(){
-        $x("//label[@for=':r1o:-PRICE']").shouldBe(Condition.visible).click();
+        $x("//label[contains(@for, ':-PRICE')]").shouldBe(Condition.visible, Duration.ofSeconds(20)).click();
     }
     public ElementsCollection getResultSearchCarsForLowestPrice(){
         return $$x("//div[@class='SM_7d1e8d72 SM_2fdb9657']");
     }
 
+    public void waitForSearchTitleIsChanged(String previousValue) {
+        $x("//h1[@data-testid='page-title']").shouldNotHave(Condition.exactText(previousValue), Duration.ofSeconds(10));
+    }
 }

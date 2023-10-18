@@ -1,11 +1,9 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import pageObjects.booking.HomePage;
 
 public class HomePageTest {
 
@@ -17,7 +15,7 @@ public class HomePageTest {
     public void checkOutThePopUpsThatAppearWithPopularDestinations(){
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickOnSearchForDestination();
         Assert.assertTrue(homePage.findPopUpsWithPopularDestinations());
     }
@@ -25,7 +23,7 @@ public class HomePageTest {
     public void changeWebsiteLanguage(){
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.chooseAnotherLanguage();
         String actualTitle= homePage.getTextAfterChangeLanguage();
         Assert.assertTrue(actualTitle.contains("Find your next stay"));

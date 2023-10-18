@@ -33,7 +33,7 @@ public class SearchResultPage {
     public boolean  itemHasBeenAddedFavorites(){
         return $x("//div[@data-testid='wishlist-popover-content']").shouldBe(Condition.visible).isDisplayed();
     }
-    public void clickOnCard(){
+    public void clickOnMap(){
         $x("//div[@class='b546c9ed2b']//button[@type='button']").click();
     }
     public boolean cardHasOpen() {

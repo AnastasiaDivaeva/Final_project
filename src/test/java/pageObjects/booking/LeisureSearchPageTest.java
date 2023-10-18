@@ -2,7 +2,6 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,7 +14,7 @@ public class LeisureSearchPageTest {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickLeisureSearch();
         LeisureSearchPage leisureSearchPage = new LeisureSearchPage();
         leisureSearchPage.clickOnLeisureSearch(location);
@@ -27,7 +26,7 @@ public class LeisureSearchPageTest {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickLeisureSearch();
         LeisureSearchPage leisureSearchPage = new LeisureSearchPage();
         leisureSearchPage.setDate("2023-11-26", "2023-11-27");
@@ -44,19 +43,21 @@ public class LeisureSearchPageTest {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         homePage.clickLeisureSearch();
         LeisureSearchPage leisureSearchPage = new LeisureSearchPage();
         leisureSearchPage.clickOnLeisureSearch(location);
-        leisureSearchPage.clickOnLowestPrice();
+        leisureSearchPage.clickOnLowestPriceAndWaitForChangesApplied();
         ElementsCollection pricesAfterFilter = leisureSearchPage.getResultSearchEntertainmentForLowestPrice();
         List<Double> prices = new ArrayList<>();
         for (SelenideElement price : pricesAfterFilter) {
-            String evaluationPrices = price.getText().replaceAll(",", "").replaceAll("UAH", "");
+            String evaluationPrices = price.getText()
+                    .replaceAll(",", "")
+                    .replaceAll("UAH", "");
             prices.add(Double.parseDouble(evaluationPrices));
-            for (int i = 1; i < prices.size(); i++) {
-                Assert.assertTrue(prices.get(i) >= prices.get(i - 1));
-            }
+        }
+        for (int i = 1; i < prices.size(); i++) {
+            Assert.assertTrue(prices.get(i) >= prices.get(i - 1));
         }
     }
 }

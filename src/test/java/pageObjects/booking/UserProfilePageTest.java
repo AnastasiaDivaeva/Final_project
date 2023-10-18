@@ -1,7 +1,6 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -21,7 +20,7 @@ public class UserProfilePageTest {
         String newLastName = UUID.randomUUID().toString().replaceAll("[^a-zA-Z]", "") + "LastName";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
-        homePage.closePopUp(WebDriverRunner.getWebDriver());
+        homePage.closePopUp();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.logInToTheSite("leraaa@gmail.com", "123456789Er");
         homePage.clickOnHeaderProfile();
