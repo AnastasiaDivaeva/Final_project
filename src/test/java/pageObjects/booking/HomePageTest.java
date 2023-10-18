@@ -31,6 +31,6 @@ public class HomePageTest {
         homePage.closePopUp();
         homePage.chooseAnotherLanguage();
         String actualTitle = homePage.getTextAfterChangeLanguage();
-        Assert.assertTrue(actualTitle.contains("Find your next stay"));
+        Assert.assertEquals(actualTitle, "Find your next stay");
     }
 }

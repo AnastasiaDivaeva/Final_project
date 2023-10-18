@@ -14,7 +14,7 @@ public class UserProfilePage {
 
     @Step("Change user name")
     public void changeUsername(String newName, String newLastName) {
-        $x("//div[@data-test-id='mysettings-row-name']").click();
+        $x("//div[@data-test-id='mysettings-row-name']//div[@class='comp-container__element']").click();
         SelenideElement username = $x("//input[@name='first']").shouldBe(Condition.visible);
         username.doubleClick();
         username.sendKeys(newName);
