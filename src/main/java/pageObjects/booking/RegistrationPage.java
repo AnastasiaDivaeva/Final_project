@@ -2,7 +2,9 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -60,7 +62,13 @@ public class RegistrationPage {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='password']").setValue(password);
-        clickAndHoldWebElement("//button[@type='submit']");
+        while (true) {
+            try {
+                clickAndHoldWebElement("//button[@type='submit']");
+            } catch (StaleElementReferenceException | ElementNotFound ignored) {
+                break;
+            }
+        }
     }
 
     @Step("Registration on the website")
@@ -82,7 +90,7 @@ public class RegistrationPage {
         WebElement submit = $x(xpath).getWrappedElement();
         builder.clickAndHold(submit).perform();
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
