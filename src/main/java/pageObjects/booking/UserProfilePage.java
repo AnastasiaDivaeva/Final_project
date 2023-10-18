@@ -2,15 +2,17 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class UserProfilePage {
-
+    @Step("Choose personal details")
     public void choosePersonalDetails() {
         $x("//li[@data-ga-label='Category: personal_details']").click();
     }
 
+    @Step("Change user name")
     public void changeUsername(String newName, String newLastName) {
         $x("//button[@data-ga-label='Edit section: name']").click();
         SelenideElement username = $x("//input[@autocomplete='given-name']").shouldBe(Condition.visible);
@@ -23,6 +25,7 @@ public class UserProfilePage {
         $x("//input[@autocomplete='given-name']").shouldBe(Condition.hidden);
     }
 
+    @Step("Get text after changed user name")
     public String getTextAfterChangeUserName() {
         return $x("//div[@data-test-id='mysettings-row-name']//div[@class='comp-container__element']").getText();
     }

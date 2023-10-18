@@ -1,6 +1,7 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -13,8 +14,9 @@ public class DetailPageTest {
         Selenide.closeWebDriver();
     }
 
-    @Test
-    public void checkIsInformationAboutHotelService(){
+    @Test(description = "Check if there is information about the hotel's services")
+    @Description("Test description: check if there is information about the hotel's services")
+    public void checkIsInformationAboutHotelService() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -26,12 +28,11 @@ public class DetailPageTest {
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
-       DetailPage detailPage=new DetailPage();
-       detailPage.clickOnFacilitiesInformationButton();
+        DetailPage detailPage = new DetailPage();
+        detailPage.clickOnFacilitiesInformationButton();
 
         Assert.assertTrue(detailPage.informationAboutServiceIsDisplayed());
     }
-
 
 
 }

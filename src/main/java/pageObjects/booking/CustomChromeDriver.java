@@ -20,12 +20,12 @@ public class CustomChromeDriver implements WebDriverProvider {
         Map<String, Object> removeAutomationProperties = new HashMap<>();
         removeAutomationProperties.put("source",
                 "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;\n" +
-                "delete window.cdc_adoQpoasnfa76pfcZLmcfl_JSON;\n" +
-                "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Proxy;\n" +
-                "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Object;\n" +
-                "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;\n" +
-                "delete navigator.__proto__.webdriver;\n" +
-                "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;");
+                        "delete window.cdc_adoQpoasnfa76pfcZLmcfl_JSON;\n" +
+                        "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Proxy;\n" +
+                        "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Object;\n" +
+                        "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;\n" +
+                        "delete navigator.__proto__.webdriver;\n" +
+                        "delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;");
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");

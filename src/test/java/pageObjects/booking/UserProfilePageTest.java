@@ -1,6 +1,7 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +15,8 @@ public class UserProfilePageTest {
         Selenide.closeWebDriver();
     }
 
-    @Test
+    @Test(description = "Edit the user name")
+    @Description("Test description: check that you can change the user's name")
     public void editUserProfileName() {
         String newFirstName = UUID.randomUUID().toString().replaceAll("[^a-zA-Z]", "") + "Username";
         String newLastName = UUID.randomUUID().toString().replaceAll("[^a-zA-Z]", "") + "LastName";

@@ -2,43 +2,87 @@ package pageObjects.booking;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultPage {
+    @Step("Get the title of the search result")
     public String getResultSearchTitle() {
         return $x(" //h1[@aria-live='assertive']").getText();
     }
 
+    @Step("Get search results in which hotels are sorted by location")
     public ElementsCollection getResultSearchThatHotelsSortedByLocation() {
         return $$x("//div[@data-testid='property-card']//span[@data-testid='address']");
     }
 
-    public void chooseFilterLowestPropertyEvaluation() {
-        $x("//button[@data-testid='sorters-dropdown-trigger']").click();
-        $x("//button[@data-id='class_asc']").click();
-    }
-
-    public ElementsCollection getResultAfterChooseFilter() {
-        return $$x("//div[@class='a3b8729ab1 d86cee9b25']").shouldBe();
-    }
-
+    @Step("Choose a hotel")
     public void chooseHotel() {
         $x("//div[@data-testid='title']").shouldBe(Condition.visible).click();
     }
-    public void clickOnSaveButton(){
+
+    @Step("Click on the save button")
+    public void clickOnSaveButton() {
         $x("//span[@data-testid='wishlist-icon']").click();
     }
-    public boolean  itemHasBeenAddedFavorites(){
+
+    @Step("The item has been added to favorites")
+    public boolean itemHasBeenAddedFavorites() {
         return $x("//div[@data-testid='wishlist-popover-content']").shouldBe(Condition.visible).isDisplayed();
     }
-    public void clickOnMap(){
+
+    @Step("Click on the map")
+    public void clickOnMap() {
         $x("//div[@class='b546c9ed2b']//button[@type='button']").click();
     }
-    public boolean cardHasOpen() {
-        return  $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
+
+    @Step("The map opened")
+    public boolean mapHasOpen() {
+        return $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
     }
 
+    @Step("Set the city in the search bar")
+    public void setCityInSearchBar(String city) {
+        $x("//div[@data-testid='destination-container']").click();
+        $x("//input[@class='eb46370fe1' and @name='ss']").setValue(city);
+    }
+
+    @Step("Select sort by price in ascending order")
+    public void chooseSortByPriceAsc() {
+        $x("//button[@data-testid='sorters-dropdown-trigger']").click();
+
+        List<String> pricesBeforeRedrawn = getPrices().stream()
+                .map(SelenideElement::getText)
+                .collect(Collectors.toList());
+
+        $x("//button[@data-id='price']").click();
+
+        waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", pricesBeforeRedrawn);
+    }
+
+    @Step("Get the prices")
+    public ElementsCollection getPrices() {
+        return $$x("//span[@data-testid='price-and-discounted-price']");
+    }
+
+    private void waitWhileElementsRedrawn(String newElementsXpath, List<String> oldElementsState) {
+        while (true) {
+            ElementsCollection newElements = $$x(newElementsXpath);
+            for (int i = 0; i < oldElementsState.size(); i++) {
+                String oldElementText = oldElementsState.get(i);
+                String newElementText = newElements.get(i).getText();
+                if (!oldElementText.equals(newElementText)) {
+                    return;
+                }
+            }
+        }
+    }
 }
+
 

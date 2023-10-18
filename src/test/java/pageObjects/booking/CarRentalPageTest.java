@@ -3,6 +3,7 @@ package pageObjects.booking;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -17,8 +18,9 @@ public class CarRentalPageTest {
         Selenide.closeWebDriver();
     }
 
-    @Test
-    public void checkSearchCarPickupLocation() {
+    @Test(description = "Check search location on car rental page")
+    @Description("Test description: check that the search on the car rental page works correctly")
+    public void checkSearchLocation() {
         String location = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -31,7 +33,8 @@ public class CarRentalPageTest {
         Assert.assertTrue(actualSearchTitle.contains(location));
     }
 
-    @Test
+    @Test(description = "Check the search for cars at the lowest price")
+    @Description("Test description: check that prices are displayed in ascending order")
     public void checkSearchCarsForLowestPrice() {
         String location = "Львів";
         HomePage homePage = new HomePage();
@@ -50,7 +53,7 @@ public class CarRentalPageTest {
                     .replaceAll(",", ".")
                     .replaceAll("UAH", "")
                     .replaceAll(" ", "")
-                    .replaceAll("грн","");
+                    .replaceAll("грн", "");
             prices.add(Double.parseDouble(evaluationPrices));
         }
         for (int i = 1; i < prices.size(); i++) {

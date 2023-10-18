@@ -1,6 +1,7 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -13,8 +14,9 @@ public class BookingPageTest {
         Selenide.closeWebDriver();
     }
 
-    @Test
-    public void checkingApartmentReservation() {
+    @Test(description = "Availability of information about the apartment")
+    @Description("Test description: check that the information about the apartment is specified when booking")
+    public void availabilityInformationAboutApartment() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -33,7 +35,8 @@ public class BookingPageTest {
         Assert.assertTrue(bookingPage.bookingInformation());
     }
 
-    @Test
+    @Test(description = "Checking the display of the correct price when booking an apartment")
+    @Description("Test description: check that the price when booking a hotel is the same as on the details page ")
     public void checkingTheDisplayOfCorrectPriceWhenBookingAnApartment() {
         String city = "Львів";
         HomePage homePage = new HomePage();
