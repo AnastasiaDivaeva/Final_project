@@ -78,7 +78,7 @@ public class RegistrationPage {
         WebElement submit = $x(xpath).getWrappedElement();
         builder.clickAndHold(submit).perform();
         try {
-            Thread.sleep(500);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
