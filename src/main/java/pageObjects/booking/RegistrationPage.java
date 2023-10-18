@@ -1,6 +1,8 @@
 package pageObjects.booking;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.interactions.Actions;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -55,7 +57,9 @@ public class RegistrationPage {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='password']").setValue(password);
-        $x("//button[@type='submit']").click();
+        Actions builder = new Actions(WebDriverRunner.getWebDriver());
+        builder.clickAndHold($x("//button[@type='submit']").getWrappedElement()).perform();
+//        $x("//button[@type='submit']").getWrappedElement().click();
     }
 
     public void signUpToTheSite(String login, String password) {
