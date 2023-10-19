@@ -41,7 +41,6 @@ public class LeisureSearchPageTest {
         leisureSearchPage.clickOnEntertainment();
         String actual = leisureSearchPage.getTitleActual();
         Assert.assertEquals(actual, expected);
-
     }
 
     @Test(description = "Check the search for entertainment at the lowest price")

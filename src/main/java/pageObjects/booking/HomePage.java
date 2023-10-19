@@ -8,6 +8,7 @@ import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import java.time.Duration;
@@ -39,7 +40,7 @@ public class HomePage {
             while (true) {
                 try {
                     driver.getTitle();
-                } catch (UnreachableBrowserException | NoSuchSessionException e) {
+                } catch (WebDriverException e) {
                     System.out.println(Thread.currentThread().getName() + " Driver unreachable");
                     break;
                 }
