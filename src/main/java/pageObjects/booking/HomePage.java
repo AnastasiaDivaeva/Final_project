@@ -41,17 +41,14 @@ public class HomePage {
                 try {
                     driver.getTitle();
                 } catch (WebDriverException e) {
-                    System.out.println(Thread.currentThread().getName() + " Driver unreachable");
                     break;
                 }
                 try {
                     $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
                             .shouldBe(Condition.visible, Duration.ofSeconds(1))
                             .click();
-                    System.out.println(Thread.currentThread().getName() + " Popup Closed");
                     return;
                 } catch (ElementNotFound ignored) {
-                    System.out.println(Thread.currentThread().getName() + " Popup not found");
                 }
             }
         }).start();
