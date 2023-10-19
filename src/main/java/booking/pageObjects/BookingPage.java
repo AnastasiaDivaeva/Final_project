@@ -16,7 +16,9 @@ public class BookingPage {
 
     @Step("Get the actual price")
     public double getPrice() {
-        String priceText = $x("//span[@data-animate-price-group-name='bp_user_total_price']").getText();
+        String priceText = $x("//span[@data-animate-price-group-name='bp_user_total_price']")
+                .shouldBe(Condition.visible)
+                .getText();
         String cleanPrice = priceText
                 .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
                 .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING)

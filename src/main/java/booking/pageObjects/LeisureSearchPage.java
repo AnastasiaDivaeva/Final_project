@@ -19,18 +19,18 @@ import static com.codeborne.selenide.Selenide.$x;
 public class LeisureSearchPage {
     @Step("Enter the location where the entertainment ")
     public void clickOnLeisureSearch(String location) {
-        $x(" //input[@name='query']").setValue(location);
-        $x("//a[@data-testid='search-bar-result']").click();
-        $x("//button[@type='submit']").click();
+        $x("//input[@name='query']").shouldBe(Condition.visible).setValue(location);
+        $x("//a[@data-testid='search-bar-result']").shouldBe(Condition.visible).click();
+        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
     }
 
     @Step("Set the date in the search bar")
     public void setDate(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//div[@class='css-ck8kih']").click();
-        $x("//span[@data-date='" + startDateString + "']").click();
-        $x("//span[@data-date='" + endDateString + "']").click();
+        $x("//div[@class='css-ck8kih']").shouldBe(Condition.visible).click();
+        $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
+        $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
     @Step("Get name city ")
@@ -45,7 +45,7 @@ public class LeisureSearchPage {
                 .map(SelenideElement::getText)
                 .collect(Collectors.toList());
 
-        $x("//label[@for=':r1l:-lowest_price']").click();
+        $x("//label[@for=':r1l:-lowest_price']").shouldBe(Condition.visible).click();
 
         waitForAnyElementIsChanged(pricesBeforeFilter, getResultSearchEntertainmentForLowestPrice());
     }
@@ -58,11 +58,11 @@ public class LeisureSearchPage {
 
     @Step("Get the name of the entertainment on the search page ")
     public String getTitleExpected() {
-        return $x("//h4[@data-testid='card-title']").getText();
+        return $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).getText();
     }
 
     public void clickOnEntertainment() {
-        $x("//h4[@data-testid='card-title']").click();
+        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).click();
     }
 
     @Step("Get the name of the entertainment ")

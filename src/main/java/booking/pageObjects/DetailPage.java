@@ -13,13 +13,15 @@ public class DetailPage {
     @Step("Choose an apartment")
     public void selectionApartments() {
         Selenide.switchTo().window(1);
-        $x("//select[contains(@class, 'hprt-nos-select')]").click();
-        $x("//option[@value='1'][1]").click();
+        $x("//select[contains(@class, 'hprt-nos-select')]").shouldBe(Condition.visible).click();
+        $x("//option[@value='1'][1]").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on submit button")
     public void clickOnSubmitButton() {
-        $x("//button[@data-tooltip-class='submit_holder_button_tooltip']").click();
+        $x("//button[@data-tooltip-class='submit_holder_button_tooltip']")
+                .shouldBe(Condition.visible)
+                .click();
     }
 
     @Step("Get the expected price")
@@ -35,7 +37,7 @@ public class DetailPage {
     @Step("Click on the button Information about the object")
     public void clickOnFacilitiesInformationButton() {
         Selenide.switchTo().window(1);
-        $x("//a[@data-scroll='a[name=HotelFacilities]']").click();
+        $x("//a[@data-scroll='a[name=HotelFacilities]']").shouldBe(Condition.visible).click();
     }
 
     public boolean informationAboutServiceIsDisplayed() {

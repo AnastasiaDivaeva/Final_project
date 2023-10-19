@@ -55,12 +55,12 @@ public class HomePage {
 
     @Step("Close the calendar")
     public void closeCalendar() {
-        $x("//div[@data-testid='searchbox-dates-container']").click();
+        $x("//div[@data-testid='searchbox-dates-container']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on the search destination button")
     public void clickOnSearchForDestination() {
-        $x("//div[@data-testid='destination-container'] ").click();
+        $x("//div[@data-testid='destination-container'] ").shouldBe(Condition.visible).click();
     }
 
     @Step("Find pop-ups with popular destinations")
@@ -71,41 +71,41 @@ public class HomePage {
     @Step("Search for a city")
     public void searchCity(String city) {
         $x("//div[@data-testid='destination-container']").shouldBe(Condition.visible).click();
-        $x("//input[@class='eb46370fe1']").setValue(city);
+        $x("//input[@class='eb46370fe1']").shouldBe(Condition.visible).setValue(city);
     }
 
     @Step("Search for a city after logging in")
     public void searchCityAfterLogin(String city) {
         $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
-        $x("//input[@type='search']").setValue(city);
+        $x("//input[@type='search']").shouldBe(Condition.visible).setValue(city);
     }
 
     @Step("Set the date in the search bar")
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//button[@data-testid='date-display-field-start']").click();
-        $x("//span[@data-date='" + startDateString + "']").click();
-        $x("//span[@data-date='" + endDateString + "']").click();
+        $x("//button[@data-testid='date-display-field-start']").shouldBe(Condition.visible).click();
+        $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
+        $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
     @Step("Set the date in the search bar")
     public void setDateInSearchBarAfterLogin(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//div[@class='xp__dates-inner']").click();
-        $x("//td[@data-date='" + startDateString + "']").click();
-        $x("//td[@data-date='" + endDateString + "']").click();
+        $x("//div[@class='xp__dates-inner']").shouldBe(Condition.visible).click();
+        $x("//td[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
+        $x("//td[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on search button")
     public void clickSearchButton() {
-        $x("//button[@type='submit']").click();
+        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on search button")
     public void clickSearchButtonAfterLogin() {
-        $x("//button[@data-sb-id='main']").click();
+        $x("//button[@data-sb-id='main']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on car rental button")
@@ -115,8 +115,8 @@ public class HomePage {
 
     @Step("Select another language")
     public void chooseAnotherLanguage() {
-        $x("//button[@data-testid='header-language-picker-trigger']").click();
-        $x("//span[text()='English (US)'][1]").click();
+        $x("//button[@data-testid='header-language-picker-trigger']").shouldBe(Condition.visible).click();
+        $x("//span[text()='English (US)'][1]").shouldBe(Condition.visible).click();
     }
 
     @Step("Get text after changing the language")

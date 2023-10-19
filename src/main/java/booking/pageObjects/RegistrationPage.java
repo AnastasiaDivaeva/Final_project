@@ -16,59 +16,67 @@ public class RegistrationPage {
 
     @Step("Enter the correct login in the field")
     public void enterLoginInField() {
-        $x("//input[@name='username']").setValue(LOGIN).pressEnter();
+        $x("//input[@name='username']")
+                .shouldBe(Condition.visible)
+                .setValue(LOGIN).pressEnter();
     }
 
     @Step("Enter the correct password in the field")
     public void enterPasswordInField() {
-        $x("//input[@name='new_password']").setValue(PASSWORD);
+        $x("//input[@name='new_password']").shouldBe(Condition.visible).setValue(PASSWORD);
     }
 
     @Step("Enter your login incorrectly")
     public void enterIncorrectlyLogin() {
-        $x("//input[@name='username']").setValue(INCORRECTLY_LOGIN).pressEnter();
+        $x("//input[@name='username']").shouldBe(Condition.visible).setValue(INCORRECTLY_LOGIN).pressEnter();
     }
 
     @Step("Receive a message about an incorrect login")
     public boolean notificationIncorrectLogin() {
-        return $x("//div[@id='username-note']").isDisplayed();
+        return $x("//div[@id='username-note']").shouldBe(Condition.visible).isDisplayed();
     }
 
     @Step("Enter an incorrect password")
     public void enterIncorrectlyPassword() {
-        $x("//input[@name='new_password']").setValue(INCORRECTLY_PASSWORD).pressEnter();
+        $x("//input[@name='new_password']").shouldBe(Condition.visible).setValue(INCORRECTLY_PASSWORD).pressEnter();
     }
 
     @Step("Receive a message about an incorrect password")
     public boolean notificationIncorrectPassword() {
-        return $x("//div[@id='new_password-note']").isDisplayed();
+        return $x("//div[@id='new_password-note']")
+                .shouldBe(Condition.visible)
+                .isDisplayed();
     }
 
     @Step("Enter incorrect password confirmation")
     public void enterIncorrectlyPasswordConfirmation() {
-        $x("//input[@name='confirmed_password']").setValue(INCORRECTLY_PASSWORD).pressEnter();
+        $x("//input[@name='confirmed_password']")
+                .shouldBe(Condition.visible)
+                .setValue(INCORRECTLY_PASSWORD).pressEnter();
     }
 
     @Step("Notifications about incorrectly confirmed passwords")
     public boolean notificationIncorrectlyOfPasswords() {
-        return $x("//div[@id='confirmed_password-note']").isDisplayed();
+        return $x("//div[@id='confirmed_password-note']")
+                .shouldBe(Condition.visible)
+                .isDisplayed();
     }
 
     @Step("Log in to the site")
     public void logInToTheSite(String login, String password) {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
-        $x("//input[@name='username']").setValue(login).pressEnter();
-        $x("//input[@name='password']").setValue(password);
-        $x("//button[@type='submit']").click();
+        $x("//input[@name='username']").shouldBe(Condition.visible).setValue(login).pressEnter();
+        $x("//input[@name='password']").shouldBe(Condition.visible).setValue(password);
+        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
     }
 
     @Step("Registration on the website")
     public void signUpToTheSite(String login, String password) {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
-        $x("//input[@name='username']").setValue(login).pressEnter();
-        $x("//input[@name='new_password']").setValue(password);
-        $x("//input[@name='confirmed_password']").setValue(password);
-        $x("//button[@type='submit']").click();
+        $x("//input[@name='username']").shouldBe(Condition.visible).setValue(login).pressEnter();
+        $x("//input[@name='new_password']").shouldBe(Condition.visible).setValue(password);
+        $x("//input[@name='confirmed_password']").shouldBe(Condition.visible).setValue(password);
+        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
     }
 
     @Step("The header profile is displayed")

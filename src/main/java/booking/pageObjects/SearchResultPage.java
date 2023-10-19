@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class SearchResultPage {
     @Step("Get the title of the search result")
     public String getResultSearchTitle() {
-        return $x(" //h1[@aria-live='assertive']").getText();
+        return $x(" //h1[@aria-live='assertive']").shouldBe(Condition.visible).getText();
     }
 
     @Step("Get search results in which hotels are sorted by location")
@@ -29,7 +29,7 @@ public class SearchResultPage {
 
     @Step("Click on the save button")
     public void clickOnSaveButton() {
-        $x("//span[@data-testid='wishlist-icon']").click();
+        $x("//span[@data-testid='wishlist-icon']").shouldBe(Condition.visible).click();
     }
 
     @Step("The item has been added to favorites")
@@ -39,7 +39,7 @@ public class SearchResultPage {
 
     @Step("Click on the map")
     public void clickOnMap() {
-        $x("//div[@class='b546c9ed2b']//button[@type='button']").click();
+        $x("//div[@class='b546c9ed2b']//button[@type='button']").shouldBe(Condition.visible).click();
     }
 
     @Step("The map opened")
