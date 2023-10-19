@@ -14,6 +14,17 @@ public class RegistrationPageTest {
     public void closeDriver() {
         Selenide.closeWebDriver();
     }
+    @Test(description = "Register a new user")
+    @Description("Test description: to check that we can create a new user on the site")
+    public void registrationNewUser() {
+        String randomEmail = UUID.randomUUID() + "@gmail.com";
+        HomePage homePage = new HomePage();
+        homePage.openHomePage();
+        homePage.closePopUp();
+        RegistrationPage registrationPage = new RegistrationPage();
+        registrationPage.signUpToTheSite(randomEmail, "123456789Er");
+        Assert.assertTrue(registrationPage.isDisplayedHeaderProfile());
+    }
 
     @Test(description = "Checking registration with an incorrect email address")
     @Description("Test description: check if the message appears when the login is entered incorrectly ")
@@ -52,17 +63,5 @@ public class RegistrationPageTest {
         registrationPage.enterPasswordInField();
         registrationPage.enterIncorrectlyPasswordConfirmation();
         Assert.assertTrue(registrationPage.notificationIncorrectlyOfPasswords());
-    }
-
-    @Test(description = "Register a new user")
-    @Description("Test description: to check that we can create a new user on the site")
-    public void registrationNewUser() {
-        String randomEmail = UUID.randomUUID() + "@gmail.com";
-        HomePage homePage = new HomePage();
-        homePage.openHomePage();
-        homePage.closePopUp();
-        RegistrationPage registrationPage = new RegistrationPage();
-        registrationPage.signUpToTheSite(randomEmail, "123456789Er");
-        Assert.assertTrue(registrationPage.isDisplayedHeaderProfile());
     }
 }
