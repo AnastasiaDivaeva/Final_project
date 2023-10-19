@@ -4,6 +4,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class DetailPage {
@@ -41,7 +43,8 @@ public class DetailPage {
     @Step("Click on reviews button")
     public void clickOnReviewsButton(){
         Selenide.switchTo().window(1);
-        $x("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews']").shouldBe(Condition.visible).click();
+//        $x("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews']").shouldBe(Condition.visible).click();
+        $x("//a[@data-target='hp-reviews-sliding']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }
     @Step("Window with reviews the opened")
     public boolean windowWithReviewsOpened(){
