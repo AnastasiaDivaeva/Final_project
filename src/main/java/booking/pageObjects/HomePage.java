@@ -45,9 +45,7 @@ public class HomePage {
                     break;
                 }
                 try {
-                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
-                            .shouldBe(Condition.visible, Duration.ofSeconds(1))
-                            .click();
+                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
                     return;
                 } catch (ElementNotFound ignored) {
                 }
