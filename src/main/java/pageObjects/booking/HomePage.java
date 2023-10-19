@@ -3,8 +3,12 @@ package pageObjects.booking;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
+import org.openqa.selenium.NoSuchSessionException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -13,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
+
+    private static Thread closingPopUpThread;
 
     @Step("Open the home page")
     public void openHomePage() {
@@ -27,12 +33,27 @@ public class HomePage {
 
     @Step("Close pop-up")
     public void closePopUp() {
-        try {
-            $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
-                    .shouldBe(Condition.visible, Duration.ofSeconds(20))
-                    .click();
-        } catch (ElementNotFound ignored) {
-        }
+        WebDriver driver = WebDriverRunner.getWebDriver();
+        new Thread(() -> {
+            WebDriverRunner.setWebDriver(driver);
+            while (true) {
+                try {
+                    driver.getTitle();
+                } catch (UnreachableBrowserException | NoSuchSessionException e) {
+                    System.out.println(Thread.currentThread().getName() + " Driver unreachable");
+                    break;
+                }
+                try {
+                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']")
+                            .shouldBe(Condition.visible, Duration.ofSeconds(1))
+                            .click();
+                    System.out.println(Thread.currentThread().getName() + " Popup Closed");
+                    return;
+                } catch (ElementNotFound ignored) {
+                    System.out.println(Thread.currentThread().getName() + " Popup not found");
+                }
+            }
+        }).start();
     }
 
     @Step("Close the calendar")
@@ -58,7 +79,7 @@ public class HomePage {
 
     @Step("Search for a city after logging in")
     public void searchCityAfterLogin(String city) {
-        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible,Duration.ofSeconds(10)).click();
+        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
         $x("//input[@type='search']").setValue(city);
     }
 
