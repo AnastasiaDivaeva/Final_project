@@ -40,16 +40,16 @@ public class DetailPage {
                 "//div[@data-testid='property-most-popular-facilities-wrapper']")
                 .isDisplayed();
     }
+
     @Step("Click on reviews button")
-    public void clickOnReviewsButton(){
+    public void clickOnReviewsButton() {
         Selenide.switchTo().window(1);
-//        $x("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews']").shouldBe(Condition.visible).click();
         $x("//a[@data-target='hp-reviews-sliding']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }
-    @Step("Window with reviews the opened")
-    public boolean windowWithReviewsOpened(){
-       return $x("//div[@class='sliding-panel-widget-content review_list_block one_col']").shouldBe(Condition.visible).isDisplayed();
-    }
 
+    @Step("Window with reviews the opened")
+    public boolean windowWithReviewsOpened() {
+        return $x("//div[@class='sliding-panel-widget-content review_list_block one_col']").shouldBe(Condition.visible).isDisplayed();
+    }
 }
 

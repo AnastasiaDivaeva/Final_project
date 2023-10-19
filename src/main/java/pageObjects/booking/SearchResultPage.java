@@ -47,12 +47,6 @@ public class SearchResultPage {
         return $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
     }
 
-    @Step("Set the city in the search bar")
-    public void setCityInSearchBar(String city) {
-        $x("//div[@data-testid='destination-container']").click();
-        $x("//input[@class='eb46370fe1' and @name='ss']").setValue(city);
-    }
-
     @Step("Select sort by price in ascending order")
     public void chooseSortByPriceAsc() {
         $x("//button[@data-testid='sorters-dropdown-trigger']").click();

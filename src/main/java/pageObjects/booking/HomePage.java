@@ -108,16 +108,6 @@ public class HomePage {
                 .getText();
     }
 
-    @Step("Click on header profile")
-    public void clickOnHeaderProfile() {
-        $x("//div[@data-active-button-classname='bui-button--active']").shouldBe(Condition.visible).click();
-    }
-
-    @Step("Choose account management")
-    public void chooseAccountManagement() {
-        $x("//span[contains(text(),'Керувати акаунтом')]").click();
-    }
-
     @Step("Click on the leisure")
     public void clickLeisure() {
         $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
