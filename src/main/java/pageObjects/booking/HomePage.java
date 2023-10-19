@@ -58,7 +58,7 @@ public class HomePage {
 
     @Step("Search for a city after logging in")
     public void searchCityAfterLogin(String city) {
-        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible).click();
+        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible,Duration.ofSeconds(10)).click();
         $x("//input[@type='search']").setValue(city);
     }
 

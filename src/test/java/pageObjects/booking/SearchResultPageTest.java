@@ -42,8 +42,10 @@ public class SearchResultPageTest {
         homePage.openHomePage();
         homePage.closePopUp();
         homePage.searchCity(city);
+        homePage.setDateInSearchBar(
+                LocalDate.now().plusMonths(1),
+                LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
-        homePage.closeCalendar();
         SearchResultPage searchResultPage = new SearchResultPage();
         ElementsCollection addressElements = searchResultPage.getResultSearchThatHotelsSortedByLocation();
         for (SelenideElement hotelAddress : addressElements) {

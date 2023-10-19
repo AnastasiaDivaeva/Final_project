@@ -8,6 +8,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RegistrationPage {
@@ -82,7 +84,7 @@ public class RegistrationPage {
 
     @Step("The header profile is displayed")
     public boolean isDisplayedHeaderProfile() {
-        return $x("//span[@class='bui-avatar-block__title']").shouldBe(Condition.exist).isDisplayed();
+        return $x("//span[@class='bui-avatar-block__title']").shouldBe(Condition.exist, Duration.ofSeconds(10)).isDisplayed();
     }
 
     private void clickAndHoldWebElement(String xpath) {
