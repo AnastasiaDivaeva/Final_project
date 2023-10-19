@@ -1,12 +1,7 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
@@ -64,13 +59,7 @@ public class RegistrationPage {
         $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='password']").setValue(password);
-        while (true) {
-            try {
-                clickAndHoldWebElement("//button[@type='submit']");
-            } catch (StaleElementReferenceException | ElementNotFound ignored) {
-                break;
-            }
-        }
+        $x("//button[@type='submit']").click();
     }
 
     @Step("Registration on the website")
@@ -79,23 +68,11 @@ public class RegistrationPage {
         $x("//input[@name='username']").setValue(login).pressEnter();
         $x("//input[@name='new_password']").setValue(password);
         $x("//input[@name='confirmed_password']").setValue(password);
-        clickAndHoldWebElement("//button[@type='submit']");
+        $x("//button[@type='submit']").click();
     }
 
     @Step("The header profile is displayed")
     public boolean isDisplayedHeaderProfile() {
         return $x("//span[@class='bui-avatar-block__title']").shouldBe(Condition.exist, Duration.ofSeconds(10)).isDisplayed();
-    }
-
-    private void clickAndHoldWebElement(String xpath) {
-        Actions builder = new Actions(WebDriverRunner.getWebDriver());
-        WebElement submit = $x(xpath).getWrappedElement();
-        builder.clickAndHold(submit).perform();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        builder.release(submit).perform();
     }
 }

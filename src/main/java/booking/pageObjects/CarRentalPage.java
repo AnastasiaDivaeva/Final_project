@@ -1,4 +1,4 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -43,5 +43,4 @@ public class CarRentalPage {
     public ElementsCollection getResultSearchCarsForLowestPrice() {
         return $$x("//div[@class='SM_7d1e8d72 SM_2fdb9657']");
     }
-
 }

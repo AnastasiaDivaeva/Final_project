@@ -3,13 +3,13 @@
 <suite name="All Tests">
     <test name="All Test Suite">
         <classes>
-            <class name="pageObjects.booking.CarRentalPageTest" />
-            <class name="pageObjects.booking.DetailPageTest" />
-            <class name="pageObjects.booking.HomePageTest" />
-            <class name="pageObjects.booking.RegistrationPageTest" />
-            <class name="pageObjects.booking.SearchResultPageTest" />
-            <class name="pageObjects.booking.BookingPageTest" />
-            <class name="pageObjects.booking.LeisureSearchPageTest" />
+            <class name="booking.pageObjects.CarRentalPageTest" />
+            <class name="booking.pageObjects.DetailPageTest" />
+            <class name="booking.pageObjects.HomePageTest" />
+            <class name="booking.pageObjects.RegistrationPageTest" />
+            <class name="booking.pageObjects.SearchResultPageTest" />
+            <class name="booking.pageObjects.BookingPageTest" />
+            <class name="booking.pageObjects.LeisureSearchPageTest" />
         </classes>
     </test>
 </suite>

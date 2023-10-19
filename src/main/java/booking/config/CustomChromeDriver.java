@@ -1,4 +1,4 @@
-package pageObjects.booking;
+package booking.config;
 
 import com.codeborne.selenide.WebDriverProvider;
 import org.openqa.selenium.Capabilities;
@@ -15,7 +15,8 @@ public class CustomChromeDriver implements WebDriverProvider {
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
         Map<String, Object> userAgentParams = new HashMap<>();
-        userAgentParams.put("userAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.5938.149 Safari/537.36");
+        userAgentParams.put("userAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/117.0.5938.149 Safari/537.36");
 
         Map<String, Object> removeAutomationProperties = new HashMap<>();
         removeAutomationProperties.put("source",
@@ -29,17 +30,8 @@ public class CustomChromeDriver implements WebDriverProvider {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");
-//        chromeOptions.addArguments("start-maximized");
-//        chromeOptions.addArguments("headless");
         chromeOptions.addArguments("--headless=new");
         chromeOptions.addArguments("--window-size=2560,1440");
-//        chromeOptions.addArguments("no-sandbox");
-//        chromeOptions.addArguments("start-fullscreen");
-//        chromeOptions.addArguments("single-process");
-//        chromeOptions.addArguments("disable-dev-shm-usage");
-//        chromeOptions.addArguments("incognito");
-//        chromeOptions.addArguments("disable-infobars");
-
         capabilities.asMap().forEach(chromeOptions::setCapability);
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});

@@ -1,4 +1,4 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;

@@ -1,15 +1,14 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
+import booking.config.CustomChromeDriver;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
-import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -18,8 +17,6 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
-
-    private static Thread closingPopUpThread;
 
     @Step("Open the home page")
     public void openHomePage() {
@@ -33,6 +30,10 @@ public class HomePage {
     }
 
     @Step("Close pop-up")
+    /**
+     * This method is required, because PopUp appears on the page in random time. It is also may not appear.
+     * So, there is a need to track pop up in separate thread and close it as far as it appears.
+     */
     public void closePopUp() {
         WebDriver driver = WebDriverRunner.getWebDriver();
         new Thread(() -> {

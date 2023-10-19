@@ -1,5 +1,6 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
+import booking.utils.StringUtils;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
@@ -17,9 +18,9 @@ public class BookingPage {
     public double getPrice() {
         String priceText = $x("//span[@data-animate-price-group-name='bp_user_total_price']").getText();
         String cleanPrice = priceText
-                .replaceAll("UAH", "")
-                .replaceAll(" ", "")
-                .replaceAll(",", ".");
+                .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
+                .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING)
+                .replaceAll(StringUtils.COMMA, StringUtils.DOT);
         return Double.parseDouble(cleanPrice);
     }
 }

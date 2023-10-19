@@ -1,6 +1,5 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -9,17 +8,15 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 
-import static com.codeborne.selenide.Selenide.$x;
-
-public class DetailPageTest {
+public class BookingPageTest {
     @AfterMethod
     public void closeDriver() {
         Selenide.closeWebDriver();
     }
 
-    @Test(description = "Check if there is information about the hotel's services")
-    @Description("Test description: check if there is information about the hotel's services")
-    public void checkIsInformationAboutHotelService() {
+    @Test(description = "Availability of information about the apartment")
+    @Description("Test description: check that the information about the apartment is specified when booking")
+    public void availabilityInformationAboutApartment() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -32,14 +29,15 @@ public class DetailPageTest {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
         DetailPage detailPage = new DetailPage();
-        detailPage.clickOnFacilitiesInformationButton();
-
-        Assert.assertTrue(detailPage.informationAboutServiceIsDisplayed());
+        detailPage.selectionApartments();
+        detailPage.clickOnSubmitButton();
+        BookingPage bookingPage = new BookingPage();
+        Assert.assertTrue(bookingPage.bookingInformation());
     }
 
-    @Test(description = "Check for comments on the page")
-    @Description("Test description: check that a window with reviews opens ")
-    public void checkForCommentsOnThePage() {
+    @Test(description = "Checking the display of the correct price when booking an apartment")
+    @Description("Test description: check that the price when booking a hotel is the same as on the details page ")
+    public void checkingTheDisplayOfCorrectPriceWhenBookingAnApartment() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -52,13 +50,12 @@ public class DetailPageTest {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
         DetailPage detailPage = new DetailPage();
-        detailPage.clickOnReviewsButton();
+        detailPage.selectionApartments();
+        int getPriceExpected = detailPage.getPrice();
+        detailPage.clickOnSubmitButton();
+        BookingPage bookingPage = new BookingPage();
+        long getPriceActual = Math.round(bookingPage.getPrice());
 
-        Assert.assertTrue(detailPage.windowWithReviewsOpened());
+        Assert.assertEquals(getPriceExpected, getPriceActual);
     }
-
-
 }
-
-
-

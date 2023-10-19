@@ -1,5 +1,6 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
+import booking.utils.StringUtils;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
@@ -25,7 +26,9 @@ public class DetailPage {
     public int getPrice() {
         String priceText = $x("//div[@class='hprt-reservation-total-price" +
                 " bui-price-display__value prco-inline-block-maker-helper']").getText();
-        String cleanPrice = priceText.replaceAll("UAH", "").replaceAll(" ", "");
+        String cleanPrice = priceText
+                .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
+                .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING);
         return Integer.parseInt(cleanPrice);
     }
 
@@ -37,8 +40,7 @@ public class DetailPage {
 
     public boolean informationAboutServiceIsDisplayed() {
         return $x("//div[@data-testid='property-section--content']" +
-                "//div[@data-testid='property-most-popular-facilities-wrapper']")
-                .isDisplayed();
+                "//div[@data-testid='property-most-popular-facilities-wrapper']").isDisplayed();
     }
 
     @Step("Click on reviews button")
@@ -49,7 +51,9 @@ public class DetailPage {
 
     @Step("Window with reviews the opened")
     public boolean windowWithReviewsOpened() {
-        return $x("//div[@class='sliding-panel-widget-content review_list_block one_col']").shouldBe(Condition.visible).isDisplayed();
+        return $x("//div[@class='sliding-panel-widget-content review_list_block one_col']")
+                .shouldBe(Condition.visible)
+                .isDisplayed();
     }
 }
 

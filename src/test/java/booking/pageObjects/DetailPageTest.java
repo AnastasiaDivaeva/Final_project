@@ -1,4 +1,4 @@
-package pageObjects.booking;
+package booking.pageObjects;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
@@ -8,15 +8,15 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 
-public class BookingPageTest {
+public class DetailPageTest {
     @AfterMethod
     public void closeDriver() {
         Selenide.closeWebDriver();
     }
 
-    @Test(description = "Availability of information about the apartment")
-    @Description("Test description: check that the information about the apartment is specified when booking")
-    public void availabilityInformationAboutApartment() {
+    @Test(description = "Check if there is information about the hotel's services")
+    @Description("Test description: check if there is information about the hotel's services")
+    public void checkIsInformationAboutHotelService() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -29,15 +29,14 @@ public class BookingPageTest {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
         DetailPage detailPage = new DetailPage();
-        detailPage.selectionApartments();
-        detailPage.clickOnSubmitButton();
-        BookingPage bookingPage = new BookingPage();
-        Assert.assertTrue(bookingPage.bookingInformation());
+        detailPage.clickOnFacilitiesInformationButton();
+
+        Assert.assertTrue(detailPage.informationAboutServiceIsDisplayed());
     }
 
-    @Test(description = "Checking the display of the correct price when booking an apartment")
-    @Description("Test description: check that the price when booking a hotel is the same as on the details page ")
-    public void checkingTheDisplayOfCorrectPriceWhenBookingAnApartment() {
+    @Test(description = "Check for comments on the page")
+    @Description("Test description: check that a window with reviews opens ")
+    public void checkForCommentsOnThePage() {
         String city = "Львів";
         HomePage homePage = new HomePage();
         homePage.openHomePage();
@@ -50,12 +49,13 @@ public class BookingPageTest {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.chooseHotel();
         DetailPage detailPage = new DetailPage();
-        detailPage.selectionApartments();
-        int getPriceExpected = detailPage.getPrice();
-        detailPage.clickOnSubmitButton();
-        BookingPage bookingPage = new BookingPage();
-        long getPriceActual = Math.round(bookingPage.getPrice());
+        detailPage.clickOnReviewsButton();
 
-        Assert.assertEquals(getPriceExpected, getPriceActual);
+        Assert.assertTrue(detailPage.windowWithReviewsOpened());
     }
+
+
 }
+
+
+
