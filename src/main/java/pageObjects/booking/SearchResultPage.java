@@ -49,13 +49,13 @@ public class SearchResultPage {
 
     @Step("Select sort by price in ascending order")
     public void chooseSortByPriceAsc() {
-        $x("//button[@data-testid='sorters-dropdown-trigger']").click();
+        $x("//button[@data-testid='sorters-dropdown-trigger']").shouldBe(Condition.visible).click();
 
         List<String> pricesBeforeRedrawn = getPrices().stream()
                 .map(SelenideElement::getText)
                 .collect(Collectors.toList());
 
-        $x("//button[@data-id='price']").click();
+        $x("//button[@data-id='price']").shouldBe(Condition.visible).click();
 
         waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", pricesBeforeRedrawn);
     }
