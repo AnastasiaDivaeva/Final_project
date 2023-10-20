@@ -39,7 +39,9 @@ public class SearchResultPage {
 
     @Step("Click on the map")
     public void clickOnMap() {
-        $x("//div[@class='b546c9ed2b']//button[@type='button']").shouldBe(Condition.visible).click();
+        $x("//div[@class='b546c9ed2b']//button[@type='button']")
+                .shouldBe(Condition.and("Clickable", Condition.visible, Condition.enabled))
+                .click();
     }
 
     @Step("The map opened")
