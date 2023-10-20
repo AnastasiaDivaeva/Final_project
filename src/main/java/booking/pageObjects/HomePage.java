@@ -88,6 +88,13 @@ public class HomePage {
         $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
         $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
+    public void setDateAfterSelectCurrency(LocalDate startDate, LocalDate endDate){
+        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
+        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
+        $x("//div[@class='xp__dates-inner']").shouldBe(Condition.visible).click();
+        $x("//td[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
+        $x("//td[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
+    }
 
     @Step("Set the date in the search bar")
     public void setDateInSearchBarAfterLogin(LocalDate startDate, LocalDate endDate) {
@@ -129,5 +136,22 @@ public class HomePage {
     @Step("Click on the leisure")
     public void clickLeisure() {
         $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
+    }
+    public void clickOnSupportButton(){
+        $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
+                .shouldBe(Condition.visible)
+                .click();
+    }
+    public void selectYourCurrency(){
+        $x("//button[@data-testid='header-currency-picker-trigger']")
+                .shouldBe(Condition.visible)
+                .click();
+        $x("//div[text()='EUR']").shouldBe(Condition.visible).click();
+    }
+    public void searchCityAfterSelectCurrency(String city){
+        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible).click();
+        $x("//input[@data-component='search/destination/input-placeholder']")
+                .shouldBe(Condition.visible)
+                .setValue(city);
     }
 }

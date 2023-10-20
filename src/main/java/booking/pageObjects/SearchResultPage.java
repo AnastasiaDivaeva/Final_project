@@ -77,6 +77,9 @@ public class SearchResultPage {
             }
         }
     }
+    public ElementsCollection getPricesAfterSelectYourCurrency(){
+        return $$x("//span[@data-testid='price-and-discounted-price']");
+    }
 }
 
 
