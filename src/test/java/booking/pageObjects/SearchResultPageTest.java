@@ -78,26 +78,6 @@ public class SearchResultPageTest {
         Assert.assertTrue(searchResultPage.mapHasOpen());
     }
 
-//    @Test(description = "Check the wish list")
-//    @Description("Test description: check what hotels can be saved to your wish list")
-//    public void checkWishList() {
-//        String city = "Львів";
-//        HomePage homePage = new HomePage();
-//        homePage.openHomePage();
-//        homePage.closePopUp();
-//        RegistrationPage registrationPage = new RegistrationPage();
-//        registrationPage.logInToTheSite("leraaa@gmail.com", "123456789Er");
-//        homePage.searchCityAfterLogin(city);
-//        homePage.setDateInSearchBarAfterLogin(
-//                LocalDate.now().plusMonths(1),
-//                LocalDate.now().plusMonths(1).plusDays(3));
-//        homePage.clickSearchButtonAfterLogin();
-//        SearchResultPage searchResultPage = new SearchResultPage();
-//        searchResultPage.clickOnSaveButton();
-//
-//        Assert.assertTrue(searchResultPage.itemHasBeenAddedFavorites());
-//    }
-
     @Test(description = "Check filtering at the lowest price")
     @Description("Test description: check the filtering of hotels at the lowest price")
     public void sortHotelsByLowestPrice() {
@@ -111,7 +91,7 @@ public class SearchResultPageTest {
                 LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
-        searchResultPage.chooseSortByPriceAsc();
+        searchResultPage.chooseSortByPriceAscAndWaitWhilePricesUpdated();
         ElementsCollection setEstimatesAfterFilter = searchResultPage.getPrices();
         List<Integer> pricesAscOrder = setEstimatesAfterFilter.stream()
                 .map(priceText -> priceText.getText()

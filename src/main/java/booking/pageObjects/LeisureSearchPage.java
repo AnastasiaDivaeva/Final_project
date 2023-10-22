@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class LeisureSearchPage {
-    @Step("Enter the location where the entertainment ")
+    @Step("Enter the location where the entertainment")
     public void clickOnLeisureSearch(String location) {
         $x("//input[@name='query']").shouldBe(Condition.visible).setValue(location);
         $x("//a[@data-testid='search-bar-result']").shouldBe(Condition.visible).click();
@@ -33,7 +33,7 @@ public class LeisureSearchPage {
         $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
-    @Step("Get name city ")
+    @Step("Get name city")
     public String getNameCityLeisureSearch() {
         return $x("//h1[@class='af8fbdf136 css-1uk1gs8']").shouldBe(Condition.visible).getText();
     }
@@ -56,16 +56,16 @@ public class LeisureSearchPage {
                 .shouldBe(CollectionCondition.sizeGreaterThan(0), Duration.ofSeconds(10));
     }
 
-    @Step("Get the name of the entertainment on the search page ")
+    @Step("Get the name of the entertainment on the search page")
     public String getTitleExpected() {
         return $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).getText();
     }
 
     public void clickOnEntertainment() {
-        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).click();
+        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }
 
-    @Step("Get the name of the entertainment ")
+    @Step("Get the name of the entertainment")
     public String getTitleActual() {
         Selenide.switchTo().window(1);
         return $x("//h2[@class='af8fbdf136 css-1uk1gs8']").getText();

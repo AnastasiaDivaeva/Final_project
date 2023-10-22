@@ -1,5 +1,6 @@
 package booking.pageObjects;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -50,7 +51,7 @@ public class SearchResultPage {
     }
 
     @Step("Select sort by price in ascending order")
-    public void chooseSortByPriceAsc() {
+    public void chooseSortByPriceAscAndWaitWhilePricesUpdated() {
         $x("//button[@data-testid='sorters-dropdown-trigger']").shouldBe(Condition.visible).click();
 
         List<String> pricesBeforeRedrawn = getPrices().stream()
@@ -79,8 +80,10 @@ public class SearchResultPage {
             }
         }
     }
-    public ElementsCollection getPricesAfterSelectYourCurrency(){
-        return $$x("//span[@data-testid='price-and-discounted-price']");
+
+    public ElementsCollection getPricesAfterSelectYourCurrency() {
+        return $$x("//span[@data-testid='price-and-discounted-price']")
+                .shouldBe(CollectionCondition.sizeGreaterThan(0));
     }
 }
 

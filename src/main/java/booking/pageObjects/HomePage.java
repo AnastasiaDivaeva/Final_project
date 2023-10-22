@@ -129,7 +129,7 @@ public class HomePage {
     @Step("Get text after changing the language")
     public String getTextAfterChangeLanguage() {
         return $x("//span[@data-testid='herobanner-title1']")
-                .shouldHave(Condition.exactText("Find your next stay"))
+                .shouldHave(Condition.exactText("Find your next stay"), Duration.ofSeconds(15))
                 .getText();
     }
 
