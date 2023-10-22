@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
@@ -28,7 +29,7 @@ public class HomePage {
 
     @Step("Click on the registration button")
     public void clickOnRegisterButton() {
-        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//a[@data-testid='header-sign-up-button']").click();
     }
 
     @Step("Close pop-up")
@@ -57,54 +58,54 @@ public class HomePage {
 
     @Step("Close the calendar")
     public void closeCalendar() {
-        $x("//div[@data-testid='searchbox-dates-container']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//div[@data-testid='searchbox-dates-container']").click();
     }
 
     @Step("Click on the search destination button")
     public void clickOnSearchForDestination() {
-        $x("//div[@data-testid='destination-container'] ").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//div[@data-testid='destination-container'] ").click();
     }
 
     @Step("Find pop-ups with popular destinations")
     public boolean findPopUpsWithPopularDestinations() {
-        return $x("//ul[@data-testid='autocomplete-results-options']").shouldBe(Condition.visible).isDisplayed();
+        return checkElementVisibleAndEnabled("//ul[@data-testid='autocomplete-results-options']").isDisplayed();
     }
 
     @Step("Search for a city")
     public void searchCity(String city) {
-        $x("//div[@data-testid='destination-container']").shouldBe(Condition.visible).click();
-        $x("//input[@class='eb46370fe1']").shouldBe(Condition.visible).setValue(city);
+        checkElementVisibleAndEnabled("//div[@data-testid='destination-container']").click();
+        checkElementVisibleAndEnabled("//input[@class='eb46370fe1']").setValue(city);
     }
 
     @Step("Set the date in the search bar")
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        SelenideElement buttonToOpenCalendar = $x("//button[@data-testid='date-display-field-start']");
+        SelenideElement buttonToOpenCalendar = checkElementVisibleAndEnabled("//button[@data-testid='date-display-field-start']");
         SelenideElement startDateButton = $x("//span[@data-date='" + startDateString + "']");
         SelenideElement endDateButton = $x("//span[@data-date='" + endDateString + "']");
 
         if (startDateButton.is(Condition.hidden)) {
-            buttonToOpenCalendar.shouldBe(Condition.visible).click();
+            buttonToOpenCalendar.click();
         }
-        startDateButton.shouldBe(Condition.visible).click();
-        endDateButton.shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled(startDateButton).click();
+        checkElementVisibleAndEnabled(endDateButton).click();
     }
 
     @Step("Click on search button")
     public void clickSearchButton() {
-        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//button[@type='submit']").click();
     }
 
     @Step("Click on car rental button")
     public void clickCarRentalButton() {
-        $x("//a[@id='cars']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//a[@id='cars']").click();
     }
 
     @Step("Select another language")
     public void chooseAnotherLanguage() {
-        $x("//button[@data-testid='header-language-picker-trigger']").shouldBe(Condition.visible).click();
-        $x("//button[.//text()[contains(., 'English (US)')]][1]").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//button[@data-testid='header-language-picker-trigger']").click();
+        checkElementVisibleAndEnabled("//button[.//text()[contains(., 'English (US)')]][1]").click();
     }
 
     @Step("Get text after changing the language")
@@ -116,19 +117,18 @@ public class HomePage {
 
     @Step("Click on the leisure")
     public void clickLeisure() {
-        $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//a[@id='attractions']").click();
     }
-@Step("Click on support button")
+
+    @Step("Click on support button")
     public void clickOnSupportButton() {
-        $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
-                .shouldBe(Condition.visible)
+        checkElementVisibleAndEnabled("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
                 .click();
     }
-@Step("Select your currency")
+
+    @Step("Select your currency")
     public void selectYourCurrency() {
-        $x("//button[@data-testid='header-currency-picker-trigger']")
-                .shouldBe(Condition.visible)
-                .click();
-        $x("//div[text()='EUR']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//button[@data-testid='header-currency-picker-trigger']").click();
+        checkElementVisibleAndEnabled("//div[text()='EUR']").click();
     }
 }

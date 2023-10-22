@@ -9,13 +9,14 @@ import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultPage {
     @Step("Get the title of the search result")
     public String getResultSearchTitle() {
-        return $x(" //h1[@aria-live='assertive']").shouldBe(Condition.visible).getText();
+        return checkElementVisibleAndEnabled(" //h1[@aria-live='assertive']").getText();
     }
 
     @Step("Get search results in which hotels are sorted by location")
@@ -25,7 +26,7 @@ public class SearchResultPage {
 
     @Step("Choose a hotel")
     public void chooseHotel() {
-        $x("//div[@data-testid='title']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//div[@data-testid='title']").click();
     }
 
     @Step("Click on the map")
@@ -37,16 +38,16 @@ public class SearchResultPage {
 
     @Step("The map opened")
     public boolean isMapOpened() {
-        return $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
+        return checkElementVisibleAndEnabled("//input[@type='search']").isDisplayed();
     }
 
     @Step("Select sort by price in ascending order")
     public void chooseSortByPriceAscAndWaitWhilePricesUpdated() {
-        $x("//button[@data-testid='sorters-dropdown-trigger']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//button[@data-testid='sorters-dropdown-trigger']").click();
 
         List<String> pricesBeforeRedrawn = getElementsTextList(getPrices());
 
-        $x("//button[@data-id='price']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//button[@data-id='price']").click();
 
         waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", pricesBeforeRedrawn);
     }

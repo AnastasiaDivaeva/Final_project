@@ -13,29 +13,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class LeisureSearchPage {
     @Step("Enter the location where the entertainment")
     public void clickOnLeisureSearch(String location) {
-        $x("//input[@name='query']").shouldBe(Condition.visible).setValue(location);
-        $x("//a[@data-testid='search-bar-result']").shouldBe(Condition.visible).click();
-        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//input[@name='query']").setValue(location);
+        checkElementVisibleAndEnabled("//a[@data-testid='search-bar-result']").click();
+        checkElementVisibleAndEnabled("//button[@type='submit']").click();
     }
 
     @Step("Set the date in the search bar")
     public void setDate(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//div[@class='css-ck8kih']").shouldBe(Condition.visible).click();
-        $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
-        $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//div[@class='css-ck8kih']").click();
+        checkElementVisibleAndEnabled("//span[@data-date='" + startDateString + "']").click();
+        checkElementVisibleAndEnabled("//span[@data-date='" + endDateString + "']").click();
     }
 
     @Step("Get name city")
     public String getNameCityLeisureSearch() {
-        return $x("//h1[@class='af8fbdf136 css-1uk1gs8']").shouldBe(Condition.visible).getText();
+        return checkElementVisibleAndEnabled("//h1[@class='af8fbdf136 css-1uk1gs8']").getText();
     }
 
     @Step("Click on the lowest price and wait until the changes are applied")
@@ -45,7 +46,7 @@ public class LeisureSearchPage {
                 .map(SelenideElement::getText)
                 .collect(Collectors.toList());
 
-        $x("//label[@for=':r1l:-lowest_price']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//label[@for=':r1l:-lowest_price']").click();
 
         waitForAnyElementIsChanged(pricesBeforeFilter, getResultSearchEntertainmentForLowestPrice());
     }
@@ -63,7 +64,7 @@ public class LeisureSearchPage {
 
     @Step("Choose entertainment")
     public void clickOnEntertainment() {
-        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).click();
+        checkElementVisibleAndEnabled("//h4[@data-testid='card-title']").click();
     }
 
     @Step("Get the name of the entertainment")
