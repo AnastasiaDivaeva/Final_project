@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
 
 public class CarRentalPage {
-    @Step("Select a car rental city ")
+    @Step("Select a car rental city")
     public void sendPickupLocation(String location) {
         SelenideElement cityInputElement = $x("//div[@data-testid='sbc-fl-text-input__container']");
         actions().moveToElement(cityInputElement).click(cityInputElement).perform();

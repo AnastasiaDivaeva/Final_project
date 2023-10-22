@@ -6,8 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.$x;
-
 public class HomePageTest {
 
     @AfterMethod
@@ -31,7 +29,6 @@ public class HomePageTest {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
         homePage.closePopUp();
-//        TODO Ugly
         homePage.chooseAnotherLanguage();
         String actualTitle = homePage.getTextAfterChangeLanguage();
         Assert.assertEquals(actualTitle, "Find your next stay");
