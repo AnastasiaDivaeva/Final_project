@@ -27,9 +27,18 @@ public class DetailPage {
 
     @Step("Get the expected price")
     public int getPrice() {
-        String priceText = $x("//div[@class='hprt-reservation-total-price" +
-                " bui-price-display__value prco-inline-block-maker-helper']").getText();
-        String cleanPrice = priceText
+        String rawPriceValue = "";
+
+        SelenideElement priceWithDiscount = $x("//div[@class='hprt-reservation-total-price" +
+                " bui-price-display__value prco-inline-block-maker-helper']");
+        SelenideElement priceWithoutDiscount = $x("//div[@class='hprt-reservation-total-price bui-price-display__value']");
+
+        if (priceWithDiscount.is(Condition.exist)) {
+            rawPriceValue = priceWithDiscount.getText();
+        } else {
+            rawPriceValue = priceWithoutDiscount.getText();
+        }
+        String cleanPrice = rawPriceValue
                 .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
                 .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING);
         return Integer.parseInt(cleanPrice);
