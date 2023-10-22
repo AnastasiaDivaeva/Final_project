@@ -56,6 +56,7 @@ public class SearchResultPageTest {
         ElementsCollection addressElements = searchResultPage.getResultSearchThatHotelsSortedByLocation();
         for (SelenideElement hotelAddress : addressElements) {
             String addressText = hotelAddress.getText();
+            System.out.println("Found address: " + addressText);
             Assert.assertTrue(addressText.contains(city));
         }
     }

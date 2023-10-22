@@ -14,13 +14,11 @@ import static com.codeborne.selenide.Selenide.actions;
 public class CarRentalPage {
     @Step("Select a car rental city")
     public void sendPickupLocation(String location) {
-        SelenideElement cityInputElement = $x("//div[@data-testid='sbc-fl-text-input__container']");
-        actions().moveToElement(cityInputElement).click(cityInputElement).perform();
-        SelenideElement input = $x("//input[@id='searchbox-toolbox-fts-pickup']").shouldBe(Condition.interactable);
-        actions().sendKeys(input, location).perform();
-
-        ElementsCollection locationSuggestions = $$x("//div[@data-testid='suggestion']");
-        actions().moveToElement(locationSuggestions.first()).click(locationSuggestions.first()).perform();
+        $x("//div[@data-testid='sbc-fl-text-input__container']").shouldBe(Condition.visible).click();
+        $x("//input[@id='searchbox-toolbox-fts-pickup']")
+                .shouldBe(Condition.interactable)
+                .sendKeys(location);
+        $x("//div[@data-testid='suggestion']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on search button")
