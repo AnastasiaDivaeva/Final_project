@@ -1,10 +1,8 @@
 package booking.pageObjects;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
 import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class SupportPage {
     public boolean supportPageOpens(){
