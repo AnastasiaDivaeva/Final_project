@@ -61,6 +61,7 @@ public class LeisureSearchPage {
         return $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible, Duration.ofSeconds(10)).getText();
     }
 
+    @Step("Choose entertainment")
     public void clickOnEntertainment() {
         $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).click();
     }

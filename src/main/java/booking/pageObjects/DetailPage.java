@@ -3,6 +3,7 @@ package booking.pageObjects;
 import booking.utils.StringUtils;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -48,7 +49,15 @@ public class DetailPage {
     @Step("Click on reviews button")
     public void clickOnReviewsButton() {
         Selenide.switchTo().window(1);
-        $x("//a[@data-target='hp-reviews-sliding']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
+        SelenideElement reviewButton = $x("//a[@data-target='hp-reviews-sliding']");
+        if (reviewButton.is(Condition.hidden)) {
+            $x("//li[@class='d37611a2e0 b4dfbcc93e ac2309e98f' and @role='presentation']//button")
+                    .shouldBe(Condition.visible).click();
+            $x("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews' and @role='button']")
+                    .shouldBe(Condition.visible).click();
+        } else {
+            reviewButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
+        }
     }
 
     @Step("Window with reviews the opened")

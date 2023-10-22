@@ -60,7 +60,7 @@ public class SearchResultPageTest {
         }
     }
 
-    @Test(description = "check if the map is open")
+    @Test(description = "Check if the map is open")
     @Description("Test description: check that the map is opening")
     public void checkThatMapIsOpened() {
         String city = "Львів";
@@ -105,7 +105,8 @@ public class SearchResultPageTest {
         }
     }
 
-    @Test
+    @Test(description = "Check that prices change after choosing currency")
+    @Description("Test description:check that all prices have changed for the selected currency")
     public void checkThatPricesChangeAfterChoosingCurrency() {
         String city = "Львів";
         HomePage homePage = new HomePage();

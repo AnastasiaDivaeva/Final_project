@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeisureSearchPageTest {
-    @Test(description = "Check search attractions ")
+    @Test(description = "Check search attractions")
     @Description("Test description: check that the name of the city search matches the name of the city on the page")
     public void checkSearchAttractions() {
         String location = "Львів";
@@ -25,7 +25,7 @@ public class LeisureSearchPageTest {
         Assert.assertTrue(leisureSearchPage.getNameCityLeisureSearch().contains(location));
     }
 
-    @Test(description = "check the name of the entertainment is correct")
+    @Test(description = "Check the name of the entertainment is correct")
     @Description("Test description: make sure the name of the entertainment is correct")
     public void checkThatNameEntertainmentCorrect() {
         String location = "Львів";

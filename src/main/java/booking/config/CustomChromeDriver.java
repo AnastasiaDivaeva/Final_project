@@ -30,7 +30,7 @@ public class CustomChromeDriver implements WebDriverProvider {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");
-        chromeOptions.addArguments("--headless=new");
+//        chromeOptions.addArguments("--headless=new");
         chromeOptions.addArguments("--window-size=2560,1440");
         capabilities.asMap().forEach(chromeOptions::setCapability);
         chromeOptions.setExperimentalOption("useAutomationExtension", false);

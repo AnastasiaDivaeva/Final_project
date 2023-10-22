@@ -4,6 +4,7 @@ import booking.config.CustomChromeDriver;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
@@ -79,9 +80,15 @@ public class HomePage {
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//button[@data-testid='date-display-field-start']").shouldBe(Condition.visible).click();
-        $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
-        $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
+        SelenideElement buttonToOpenCalendar = $x("//button[@data-testid='date-display-field-start']").shouldBe(Condition.visible);
+        SelenideElement startDateButton = $x("//span[@data-date='" + startDateString + "']");
+        SelenideElement endDateButton = $x("//span[@data-date='" + endDateString + "']");
+
+        if (startDateButton.is(Condition.hidden)) {
+            buttonToOpenCalendar.click();
+        }
+        startDateButton.shouldBe(Condition.visible).click();
+        endDateButton.shouldBe(Condition.visible).click();
     }
 
     @Step("Click on search button")
@@ -111,13 +118,13 @@ public class HomePage {
     public void clickLeisure() {
         $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
     }
-
+@Step("Click on support button")
     public void clickOnSupportButton() {
         $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
                 .shouldBe(Condition.visible)
                 .click();
     }
-
+@Step("Select your currency")
     public void selectYourCurrency() {
         $x("//button[@data-testid='header-currency-picker-trigger']")
                 .shouldBe(Condition.visible)
