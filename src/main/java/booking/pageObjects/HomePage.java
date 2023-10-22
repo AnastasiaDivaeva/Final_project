@@ -80,12 +80,12 @@ public class HomePage {
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        SelenideElement buttonToOpenCalendar = $x("//button[@data-testid='date-display-field-start']").shouldBe(Condition.visible);
+        SelenideElement buttonToOpenCalendar = $x("//button[@data-testid='date-display-field-start']");
         SelenideElement startDateButton = $x("//span[@data-date='" + startDateString + "']");
         SelenideElement endDateButton = $x("//span[@data-date='" + endDateString + "']");
 
         if (startDateButton.is(Condition.hidden)) {
-            buttonToOpenCalendar.click();
+            buttonToOpenCalendar.shouldBe(Condition.visible).click();
         }
         startDateButton.shouldBe(Condition.visible).click();
         endDateButton.shouldBe(Condition.visible).click();
