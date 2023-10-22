@@ -3,8 +3,6 @@ package booking.pageObjects;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RegistrationPage {
@@ -60,27 +58,5 @@ public class RegistrationPage {
         return $x("//div[@id='confirmed_password-note']")
                 .shouldBe(Condition.visible)
                 .isDisplayed();
-    }
-
-    @Step("Log in to the site")
-    public void logInToTheSite(String login, String password) {
-        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
-        $x("//input[@name='username']").shouldBe(Condition.visible).setValue(login).pressEnter();
-        $x("//input[@name='password']").shouldBe(Condition.visible).setValue(password);
-        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
-    }
-
-    @Step("Registration on the website")
-    public void signUpToTheSite(String login, String password) {
-        $x("//a[@data-testid='header-sign-up-button']").shouldBe(Condition.visible).click();
-        $x("//input[@name='username']").shouldBe(Condition.visible).setValue(login).pressEnter();
-        $x("//input[@name='new_password']").shouldBe(Condition.visible).setValue(password);
-        $x("//input[@name='confirmed_password']").shouldBe(Condition.visible).setValue(password);
-        $x("//button[@type='submit']").shouldBe(Condition.visible).click();
-    }
-
-    @Step("The header profile is displayed")
-    public boolean isDisplayedHeaderProfile() {
-        return $x("//span[@class='bui-avatar-block__title']").shouldBe(Condition.exist, Duration.ofSeconds(10)).isDisplayed();
     }
 }

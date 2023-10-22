@@ -75,7 +75,7 @@ public class SearchResultPageTest {
         SearchResultPage searchResultPage = new SearchResultPage();
         searchResultPage.clickOnMap();
 
-        Assert.assertTrue(searchResultPage.mapHasOpen());
+        Assert.assertTrue(searchResultPage.isMapOpened());
     }
 
     @Test(description = "Check filtering at the lowest price")
@@ -111,15 +111,16 @@ public class SearchResultPageTest {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
         homePage.closePopUp();
-        homePage.selectYourCurrency();
-        homePage.searchCityAfterSelectCurrency(city);
-        homePage.setDateAfterSelectCurrency(
+        homePage.searchCity(city);
+        homePage.setDateInSearchBar(
                 LocalDate.now().plusMonths(1),
                 LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
-        ElementsCollection setPricesAfterChangeCurrency = searchResultPage.getPricesAfterSelectYourCurrency();
-        List<String> currenciesList = setPricesAfterChangeCurrency.stream()
+        List<String> previousPrices = searchResultPage.getElementsTextList(searchResultPage.getPrices());
+        homePage.selectYourCurrency();
+        ElementsCollection pricesAfterCurrencyChanging = searchResultPage.getPricesAfterPricesUpdated(previousPrices);
+        List<String> currenciesList = pricesAfterCurrencyChanging.stream()
                 .map(priceText -> priceText.getText()
                         .replaceAll("[0-9]", EMPTY_STRING)
                         .replaceAll(WHITE_SPACE, EMPTY_STRING))

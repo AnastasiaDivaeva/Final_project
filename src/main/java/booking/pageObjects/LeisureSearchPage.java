@@ -58,11 +58,11 @@ public class LeisureSearchPage {
 
     @Step("Get the name of the entertainment on the search page")
     public String getTitleExpected() {
-        return $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).getText();
+        return $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible, Duration.ofSeconds(10)).getText();
     }
 
     public void clickOnEntertainment() {
-        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
+        $x("//h4[@data-testid='card-title']").shouldBe(Condition.visible).click();
     }
 
     @Step("Get the name of the entertainment")

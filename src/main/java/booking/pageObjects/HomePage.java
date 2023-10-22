@@ -74,12 +74,6 @@ public class HomePage {
         $x("//input[@class='eb46370fe1']").shouldBe(Condition.visible).setValue(city);
     }
 
-    @Step("Search for a city after logging in")
-    public void searchCityAfterLogin(String city) {
-        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
-        $x("//input[@type='search']").shouldBe(Condition.visible).setValue(city);
-    }
-
     @Step("Set the date in the search bar")
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
@@ -87,13 +81,6 @@ public class HomePage {
         $x("//button[@data-testid='date-display-field-start']").shouldBe(Condition.visible).click();
         $x("//span[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
         $x("//span[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
-    }
-    public void setDateAfterSelectCurrency(LocalDate startDate, LocalDate endDate){
-        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
-        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//div[@class='xp__dates-inner']").shouldBe(Condition.visible).click();
-        $x("//td[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
-        $x("//td[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on search button")
@@ -123,21 +110,17 @@ public class HomePage {
     public void clickLeisure() {
         $x("//a[@id='attractions']").shouldBe(Condition.visible).click();
     }
-    public void clickOnSupportButton(){
+
+    public void clickOnSupportButton() {
         $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
                 .shouldBe(Condition.visible)
                 .click();
     }
-    public void selectYourCurrency(){
+
+    public void selectYourCurrency() {
         $x("//button[@data-testid='header-currency-picker-trigger']")
                 .shouldBe(Condition.visible)
                 .click();
         $x("//div[text()='EUR']").shouldBe(Condition.visible).click();
-    }
-    public void searchCityAfterSelectCurrency(String city){
-        $x("//label[@class='sb-destination-label-sr']").shouldBe(Condition.visible).click();
-        $x("//input[@data-component='search/destination/input-placeholder']")
-                .shouldBe(Condition.visible)
-                .setValue(city);
     }
 }

@@ -28,16 +28,6 @@ public class SearchResultPage {
         $x("//div[@data-testid='title']").shouldBe(Condition.visible).click();
     }
 
-    @Step("Click on the save button")
-    public void clickOnSaveButton() {
-        $x("//span[@data-testid='wishlist-icon']").shouldBe(Condition.visible).click();
-    }
-
-    @Step("The item has been added to favorites")
-    public boolean itemHasBeenAddedFavorites() {
-        return $x("//div[@data-testid='wishlist-popover-content']").shouldBe(Condition.visible).isDisplayed();
-    }
-
     @Step("Click on the map")
     public void clickOnMap() {
         $x("//div[@class='b546c9ed2b']//button[@type='button']")
@@ -46,7 +36,7 @@ public class SearchResultPage {
     }
 
     @Step("The map opened")
-    public boolean mapHasOpen() {
+    public boolean isMapOpened() {
         return $x("//input[@type='search']").shouldBe(Condition.visible).isDisplayed();
     }
 
@@ -54,9 +44,7 @@ public class SearchResultPage {
     public void chooseSortByPriceAscAndWaitWhilePricesUpdated() {
         $x("//button[@data-testid='sorters-dropdown-trigger']").shouldBe(Condition.visible).click();
 
-        List<String> pricesBeforeRedrawn = getPrices().stream()
-                .map(SelenideElement::getText)
-                .collect(Collectors.toList());
+        List<String> pricesBeforeRedrawn = getElementsTextList(getPrices());
 
         $x("//button[@data-id='price']").shouldBe(Condition.visible).click();
 
@@ -66,6 +54,12 @@ public class SearchResultPage {
     @Step("Get the prices")
     public ElementsCollection getPrices() {
         return $$x("//span[@data-testid='price-and-discounted-price']");
+    }
+
+    public List<String> getElementsTextList(ElementsCollection elements) {
+        return elements.stream()
+                .map(SelenideElement::getText)
+                .collect(Collectors.toList());
     }
 
     private void waitWhileElementsRedrawn(String newElementsXpath, List<String> oldElementsState) {
@@ -81,7 +75,9 @@ public class SearchResultPage {
         }
     }
 
-    public ElementsCollection getPricesAfterSelectYourCurrency() {
+    public ElementsCollection getPricesAfterPricesUpdated(List<String> previousPrices) {
+        waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", previousPrices);
+
         return $$x("//span[@data-testid='price-and-discounted-price']")
                 .shouldBe(CollectionCondition.sizeGreaterThan(0));
     }

@@ -1,5 +1,6 @@
 package booking.pageObjects;
 
+import booking.utils.StringUtils;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Description;
@@ -58,8 +59,8 @@ public class LeisureSearchPageTest {
         List<Double> prices = new ArrayList<>();
         for (SelenideElement price : pricesAfterFilter) {
             String evaluationPrices = price.getText()
-                    .replaceAll(",", "")
-                    .replaceAll("UAH", "");
+                    .replaceAll(StringUtils.COMMA, StringUtils.EMPTY_STRING)
+                    .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING);
             prices.add(Double.parseDouble(evaluationPrices));
         }
         for (int i = 1; i < prices.size(); i++) {

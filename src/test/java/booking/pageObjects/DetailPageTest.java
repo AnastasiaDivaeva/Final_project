@@ -53,8 +53,6 @@ public class DetailPageTest {
 
         Assert.assertTrue(detailPage.windowWithReviewsOpened());
     }
-
-
 }
 
 

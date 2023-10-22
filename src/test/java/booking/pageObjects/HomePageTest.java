@@ -31,6 +31,7 @@ public class HomePageTest {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
         homePage.closePopUp();
+//        TODO Ugly
         String titleBefore = $x("//span[@data-testid='herobanner-title1']").getText();
         homePage.chooseAnotherLanguage();
         try {
