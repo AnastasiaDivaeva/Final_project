@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
+import static booking.utils.SelenideElementUtils.retryIfIntercepted;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
@@ -29,7 +29,9 @@ public class HomePage {
 
     @Step("Click on the registration button")
     public void clickOnRegisterButton() {
-        checkElementVisibleAndEnabled("//a[@data-testid='header-sign-up-button']").click();
+        retryIfIntercepted(() -> $x("//a[@data-testid='header-sign-up-button']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Close pop-up")
@@ -58,54 +60,75 @@ public class HomePage {
 
     @Step("Close the calendar")
     public void closeCalendar() {
-        checkElementVisibleAndEnabled("//div[@data-testid='searchbox-dates-container']").click();
+        retryIfIntercepted(() -> $x("//div[@data-testid='searchbox-dates-container']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Click on the search destination button")
     public void clickOnSearchForDestination() {
-        checkElementVisibleAndEnabled("//div[@data-testid='destination-container'] ").click();
+        retryIfIntercepted(() -> $x("//div[@data-testid='destination-container'] ")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Find pop-ups with popular destinations")
     public boolean findPopUpsWithPopularDestinations() {
-        return checkElementVisibleAndEnabled("//ul[@data-testid='autocomplete-results-options']").isDisplayed();
+        return retryIfIntercepted(() -> $x("//ul[@data-testid='autocomplete-results-options']")
+                .shouldBe(Condition.visible)
+                .isDisplayed());
     }
 
     @Step("Search for a city")
     public void searchCity(String city) {
-        checkElementVisibleAndEnabled("//div[@data-testid='destination-container']").click();
-        checkElementVisibleAndEnabled("//input[@class='eb46370fe1']").setValue(city);
+        retryIfIntercepted(() -> $x("//div[@data-testid='destination-container']")
+                .shouldBe(Condition.visible)
+                .click());
+        retryIfIntercepted(() -> $x("//input[@class='eb46370fe1']")
+                .shouldBe(Condition.visible)
+                .setValue(city));
     }
 
     @Step("Set the date in the search bar")
     public void setDateInSearchBar(LocalDate startDate, LocalDate endDate) {
         String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
         String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        SelenideElement buttonToOpenCalendar = checkElementVisibleAndEnabled("//button[@data-testid='date-display-field-start']");
+        SelenideElement buttonToOpenCalendar = retryIfIntercepted(() ->
+                $x("//button[@data-testid='date-display-field-start']")
+                        .shouldBe(Condition.visible));
         SelenideElement startDateButton = $x("//span[@data-date='" + startDateString + "']");
         SelenideElement endDateButton = $x("//span[@data-date='" + endDateString + "']");
 
         if (startDateButton.is(Condition.hidden)) {
             buttonToOpenCalendar.click();
         }
-        checkElementVisibleAndEnabled(startDateButton).click();
-        checkElementVisibleAndEnabled(endDateButton).click();
+        retryIfIntercepted(() -> startDateButton.shouldBe(Condition.visible).click());
+        retryIfIntercepted(() -> endDateButton.shouldBe(Condition.visible).click());
     }
 
     @Step("Click on search button")
     public void clickSearchButton() {
-        checkElementVisibleAndEnabled("//button[@type='submit']").click();
+        retryIfIntercepted(() -> $x("//button[@type='submit']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Click on car rental button")
     public void clickCarRentalButton() {
-        checkElementVisibleAndEnabled("//a[@id='cars']").click();
+        retryIfIntercepted(() ->
+                $x("//a[@id='cars']")
+                        .shouldBe(Condition.visible)
+                        .click());
     }
 
     @Step("Select another language")
     public void chooseAnotherLanguage() {
-        checkElementVisibleAndEnabled("//button[@data-testid='header-language-picker-trigger']").click();
-        checkElementVisibleAndEnabled("//button[.//text()[contains(., 'English (US)')]][1]").click();
+        retryIfIntercepted(() -> $x("//button[@data-testid='header-language-picker-trigger']")
+                .shouldBe(Condition.visible)
+                .click());
+        retryIfIntercepted(() -> $x("//button[.//text()[contains(., 'English (US)')]][1]")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Get text after changing the language")
@@ -117,18 +140,28 @@ public class HomePage {
 
     @Step("Click on the leisure")
     public void clickLeisure() {
-        checkElementVisibleAndEnabled("//a[@id='attractions']").click();
+        retryIfIntercepted(() -> $x("//a[@id='attractions']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Click on support button")
     public void clickOnSupportButton() {
-        checkElementVisibleAndEnabled("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
-                .click();
+        retryIfIntercepted(() ->
+                $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
+                        .shouldBe(Condition.visible)
+                        .click());
     }
 
     @Step("Select your currency")
     public void selectYourCurrency() {
-        checkElementVisibleAndEnabled("//button[@data-testid='header-currency-picker-trigger']").click();
-        checkElementVisibleAndEnabled("//div[text()='EUR']").click();
+        retryIfIntercepted(() ->
+                $x("//button[@data-testid='header-currency-picker-trigger']")
+                        .shouldBe(Condition.visible)
+                        .click());
+        retryIfIntercepted(() ->
+                $x("//div[text()='EUR']")
+                        .shouldBe(Condition.visible)
+                        .click());
     }
 }

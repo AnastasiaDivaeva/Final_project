@@ -1,16 +1,41 @@
 package booking.utils;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.ElementClickInterceptedException;
 
-import static com.codeborne.selenide.Selenide.$x;
+import java.util.function.Supplier;
 
 public class SelenideElementUtils {
-    public static SelenideElement checkElementVisibleAndEnabled(String xpath) {
-        return $x(xpath).shouldBe(Condition.enabled, Condition.visible);
+
+    public static void retryIfIntercepted(Action action) {
+        for (int i = 0; i < 3; i++) {
+            try {
+                action.doIt();
+                return;
+            } catch (ElementClickInterceptedException ignored) {
+                try {
+                    Thread.sleep(2000);
+                    System.out.println("Retry while clicking");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        throw new IllegalStateException("Retry attempts are exhausted");
     }
 
-    public static SelenideElement checkElementVisibleAndEnabled(SelenideElement element) {
-        return element.shouldBe(Condition.enabled, Condition.visible);
+    public static <T> T retryIfIntercepted(Supplier<T> action) {
+        for (int i = 0; i < 3; i++) {
+            try {
+                return action.get();
+            } catch (ElementClickInterceptedException ignored) {
+                try {
+                    Thread.sleep(2000);
+                    System.out.println("Retry while clicking");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        throw new IllegalStateException("Retry attempts are exhausted");
     }
 }

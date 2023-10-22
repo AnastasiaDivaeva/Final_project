@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
+import static booking.utils.SelenideElementUtils.retryIfIntercepted;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.actions;
@@ -15,9 +15,15 @@ import static com.codeborne.selenide.Selenide.actions;
 public class CarRentalPage {
     @Step("Select a car rental city")
     public void sendPickupLocation(String location) {
-        checkElementVisibleAndEnabled("//div[@data-testid='sbc-fl-text-input__container']").click();
-        checkElementVisibleAndEnabled("//input[@id='searchbox-toolbox-fts-pickup']").sendKeys(location);
-        checkElementVisibleAndEnabled("//div[@data-testid='suggestion']").click();
+        retryIfIntercepted(() -> $x("//div[@data-testid='sbc-fl-text-input__container']")
+                .shouldBe(Condition.visible)
+                .click());
+        retryIfIntercepted(() -> $x("//input[@id='searchbox-toolbox-fts-pickup']")
+                .shouldBe(Condition.visible)
+                .sendKeys(location));
+        retryIfIntercepted(() -> $x("//div[@data-testid='suggestion']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Click on search button")

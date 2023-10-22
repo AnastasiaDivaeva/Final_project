@@ -8,34 +8,38 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static booking.utils.SelenideElementUtils.checkElementVisibleAndEnabled;
+import static booking.utils.SelenideElementUtils.retryIfIntercepted;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class DetailPage {
     @Step("Choose an apartment")
     public void selectionApartments() {
         Selenide.switchTo().window(1);
-        checkElementVisibleAndEnabled("//select[contains(@class, 'hprt-nos-select')]").click();
-        checkElementVisibleAndEnabled("//option[@value='1'][1]").click();
+        retryIfIntercepted(() -> $x("//select[contains(@class, 'hprt-nos-select')]")
+                .shouldBe(Condition.visible)
+                .click());
+        retryIfIntercepted(() -> $x("//option[@value='1'][1]").shouldBe(Condition.visible).click());
     }
 
     @Step("Click on submit button")
     public void clickOnSubmitButton() {
-        checkElementVisibleAndEnabled("//button[@data-tooltip-class='submit_holder_button_tooltip']").click();
+        retryIfIntercepted(() -> $x("//button[@data-tooltip-class='submit_holder_button_tooltip']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     @Step("Get the expected price")
     public int getPrice() {
-        String rawPriceValue = "";
+        String rawPriceValue;
 
         SelenideElement priceWithDiscount = $x("//div[@class='hprt-reservation-total-price" +
                 " bui-price-display__value prco-inline-block-maker-helper']");
         SelenideElement priceWithoutDiscount = $x("//div[@class='hprt-reservation-total-price bui-price-display__value']");
 
         if (priceWithDiscount.is(Condition.exist)) {
-            rawPriceValue = priceWithDiscount.getText();
+            rawPriceValue = retryIfIntercepted(priceWithDiscount::getText);
         } else {
-            rawPriceValue = priceWithoutDiscount.getText();
+            rawPriceValue = retryIfIntercepted(priceWithoutDiscount::getText);
         }
         String cleanPrice = rawPriceValue
                 .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
@@ -46,12 +50,16 @@ public class DetailPage {
     @Step("Click on the button Information about the object")
     public void clickOnFacilitiesInformationButton() {
         Selenide.switchTo().window(1);
-        checkElementVisibleAndEnabled("//a[@data-scroll='a[name=HotelFacilities]']").click();
+        retryIfIntercepted(() -> $x("//a[@data-scroll='a[name=HotelFacilities]']")
+                .shouldBe(Condition.visible)
+                .click());
     }
 
     public boolean informationAboutServiceIsDisplayed() {
-        return $x("//div[@data-testid='property-section--content']" +
-                "//div[@data-testid='property-most-popular-facilities-wrapper']").isDisplayed();
+        return retryIfIntercepted(() -> $x("//div[@data-testid='property-section--content']" +
+                "//div[@data-testid='property-most-popular-facilities-wrapper']")
+                .shouldBe(Condition.visible)
+                .isDisplayed());
     }
 
     @Step("Click on reviews button")
@@ -59,8 +67,12 @@ public class DetailPage {
         Selenide.switchTo().window(1);
         SelenideElement reviewButton = $x("//a[@data-target='hp-reviews-sliding']");
         if (reviewButton.is(Condition.hidden)) {
-            checkElementVisibleAndEnabled("//li[@class='d37611a2e0 b4dfbcc93e ac2309e98f' and @role='presentation']//button").click();
-            checkElementVisibleAndEnabled("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews' and @role='button']").click();
+            retryIfIntercepted(() -> $x("//li[@class='d37611a2e0 b4dfbcc93e ac2309e98f' and @role='presentation']//button")
+                    .shouldBe(Condition.visible)
+                    .click());
+            retryIfIntercepted(() -> $x("//a[@data-testid='Property-Header-Nav-Tab-Trigger-reviews' and @role='button']")
+                    .shouldBe(Condition.visible)
+                    .click());
         } else {
             reviewButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
         }
@@ -68,8 +80,9 @@ public class DetailPage {
 
     @Step("Window with reviews the opened")
     public boolean windowWithReviewsOpened() {
-        return checkElementVisibleAndEnabled("//div[@class='sliding-panel-widget-content review_list_block one_col']")
-                .isDisplayed();
+        return retryIfIntercepted(() -> $x("//div[@class='sliding-panel-widget-content review_list_block one_col']")
+                .shouldBe(Condition.visible)
+                .isDisplayed());
     }
 }
 
