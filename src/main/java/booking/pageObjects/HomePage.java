@@ -7,6 +7,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import io.qameta.allure.Step;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
@@ -14,6 +15,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
@@ -47,7 +49,7 @@ public class HomePage {
                 try {
                     $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
                     return;
-                } catch (ElementNotFound ignored) {
+                } catch (ElementNotFound | StaleElementReferenceException ignored) {
                 }
             }
         }).start();
@@ -96,7 +98,8 @@ public class HomePage {
     @Step("Select another language")
     public void chooseAnotherLanguage() {
         $x("//button[@data-testid='header-language-picker-trigger']").shouldBe(Condition.visible).click();
-        $x("//span[text()='English (US)'][1]").shouldBe(Condition.visible).click();
+        $$x("//button[@data-testid='selection-item']").get(2).click();
+//        $x("//span[text()='English (US)'][1]").shouldBe(Condition.visible).click();
     }
 
     @Step("Get text after changing the language")

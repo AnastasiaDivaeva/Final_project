@@ -11,5 +11,4 @@ public class SupportPage {
     public void clickOnContinueWithoutAccount(){
         $x("//button[@type='button']//span[@class='e4adce92df']").shouldBe(Condition.visible).click();
     }
-
 }

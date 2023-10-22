@@ -32,20 +32,8 @@ public class HomePageTest {
         homePage.openHomePage();
         homePage.closePopUp();
 //        TODO Ugly
-        String titleBefore = $x("//span[@data-testid='herobanner-title1']").getText();
         homePage.chooseAnotherLanguage();
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-//        String actualTitle = homePage.getTextAfterChangeLanguage();
-        while(true) {
-            String actualTitle = $x("//span[@data-testid='herobanner-title1']").getText();;
-            if (!titleBefore.equals(actualTitle)) {
-                break;
-            }
-        }
-        Assert.assertEquals($x("//span[@data-testid='herobanner-title1']").getText(), "Find your next stay");
+        String actualTitle = homePage.getTextAfterChangeLanguage();
+        Assert.assertEquals(actualTitle, "Find your next stay");
     }
 }
