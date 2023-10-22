@@ -6,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import static com.codeborne.selenide.Selenide.$x;
+
 public class HomePageTest {
 
     @AfterMethod
@@ -29,8 +31,20 @@ public class HomePageTest {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
         homePage.closePopUp();
+        String titleBefore = $x("//span[@data-testid='herobanner-title1']").getText();
         homePage.chooseAnotherLanguage();
-        String actualTitle = homePage.getTextAfterChangeLanguage();
-        Assert.assertEquals(actualTitle, "Find your next stay");
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+//        String actualTitle = homePage.getTextAfterChangeLanguage();
+        while(true) {
+            String actualTitle = $x("//span[@data-testid='herobanner-title1']").getText();;
+            if (!titleBefore.equals(actualTitle)) {
+                break;
+            }
+        }
+        Assert.assertEquals($x("//span[@data-testid='herobanner-title1']").getText(), "Find your next stay");
     }
 }

@@ -96,23 +96,9 @@ public class HomePage {
         $x("//td[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
     }
 
-    @Step("Set the date in the search bar")
-    public void setDateInSearchBarAfterLogin(LocalDate startDate, LocalDate endDate) {
-        String startDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(startDate);
-        String endDateString = DateTimeFormatter.ISO_LOCAL_DATE.format(endDate);
-        $x("//div[@class='xp__dates-inner']").shouldBe(Condition.visible).click();
-        $x("//td[@data-date='" + startDateString + "']").shouldBe(Condition.visible).click();
-        $x("//td[@data-date='" + endDateString + "']").shouldBe(Condition.visible).click();
-    }
-
     @Step("Click on search button")
     public void clickSearchButton() {
         $x("//button[@type='submit']").shouldBe(Condition.visible).click();
-    }
-
-    @Step("Click on search button")
-    public void clickSearchButtonAfterLogin() {
-        $x("//button[@data-sb-id='main']").shouldBe(Condition.visible).click();
     }
 
     @Step("Click on car rental button")
