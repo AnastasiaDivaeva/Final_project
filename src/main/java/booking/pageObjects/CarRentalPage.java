@@ -21,7 +21,7 @@ public class CarRentalPage {
         retryIfIntercepted(() -> $x("//input[@id='searchbox-toolbox-fts-pickup']")
                 .shouldBe(Condition.visible)
                 .sendKeys(location));
-        retryIfIntercepted(() -> $x("//div[@data-testid='suggestion']")
+        retryIfIntercepted(() -> $x("//li[@id='searchbox-toolbox-fts-pickup-suggestion-0']")
                 .shouldBe(Condition.visible)
                 .click());
     }
