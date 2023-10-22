@@ -1,5 +1,6 @@
 package booking.utils;
 
+import com.codeborne.selenide.ex.InvalidStateException;
 import org.openqa.selenium.ElementClickInterceptedException;
 
 import java.util.function.Supplier;
@@ -11,7 +12,7 @@ public class SelenideElementUtils {
             try {
                 action.doIt();
                 return;
-            } catch (ElementClickInterceptedException ignored) {
+            } catch (ElementClickInterceptedException | InvalidStateException ignored) {
                 try {
                     Thread.sleep(2000);
                     System.out.println("Retry while clicking");
