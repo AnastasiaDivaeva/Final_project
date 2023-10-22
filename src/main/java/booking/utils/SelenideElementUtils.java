@@ -14,8 +14,8 @@ public class SelenideElementUtils {
                 return;
             } catch (ElementClickInterceptedException | InvalidStateException ignored) {
                 try {
+                    System.out.println("Retry due to Interception");
                     Thread.sleep(2000);
-                    System.out.println("Retry while clicking");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -28,10 +28,10 @@ public class SelenideElementUtils {
         for (int i = 0; i < 3; i++) {
             try {
                 return action.get();
-            } catch (ElementClickInterceptedException ignored) {
+            } catch (ElementClickInterceptedException | InvalidStateException ignored) {
                 try {
+                    System.out.println("Retry due to Interception");
                     Thread.sleep(2000);
-                    System.out.println("Retry while clicking");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

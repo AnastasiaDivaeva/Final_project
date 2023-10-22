@@ -6,6 +6,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class SearchResultPage {
     @Step("The map opened")
     public boolean isMapOpened() {
         return retryIfIntercepted(() -> $x("//input[@type='search']")
-                .shouldBe(Condition.visible)
+                .shouldBe(Condition.visible, Duration.ofSeconds(20))
                 .isDisplayed());
     }
 
