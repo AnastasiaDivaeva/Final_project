@@ -36,7 +36,7 @@ public class SearchResultPageTest {
         homePage.clickSearchButton();
         homePage.closeCalendar();
         SearchResultPage searchResultPage = new SearchResultPage();
-        String searchResultTitleValue = searchResultPage.getResultSearchTitle();
+        String searchResultTitleValue = searchResultPage.getSearchResultTitle();
         Assert.assertTrue(searchResultTitleValue.contains(city));
     }
 
@@ -53,7 +53,7 @@ public class SearchResultPageTest {
                 LocalDate.now().plusMonths(1).plusDays(3));
         homePage.clickSearchButton();
         SearchResultPage searchResultPage = new SearchResultPage();
-        ElementsCollection addressElements = searchResultPage.getResultSearchThatHotelsSortedByLocation();
+        ElementsCollection addressElements = searchResultPage.getHotelsLocationAfterSearchingByLocationApplied();
         for (SelenideElement hotelAddress : addressElements) {
             String addressText = hotelAddress.getText();
             Assert.assertTrue(addressText.contains(city),

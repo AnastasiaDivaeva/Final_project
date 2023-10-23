@@ -48,10 +48,10 @@ public class CarRentalPageTest {
 
         carRentalPage.clickSearchButton();
         carRentalPage.clickOnLowestPrice();
-        ElementsCollection pricesAfterFilter = carRentalPage.getResultSearchCarsForLowestPrice();
+        ElementsCollection rawPricesAfterOrdering = carRentalPage.getSearchResultPrices();
         List<Double> prices = new ArrayList<>();
-        for (SelenideElement price : pricesAfterFilter) {
-            String evaluationPrices = price.getText()
+        for (SelenideElement rawPrices : rawPricesAfterOrdering) {
+            String evaluationPrices = rawPrices.getText()
                     .replaceAll(StringUtils.COMMA, StringUtils.DOT)
                     .replaceAll(CurrenciesUtils.UAH, StringUtils.EMPTY_STRING)
                     .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING)

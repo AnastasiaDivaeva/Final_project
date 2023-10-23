@@ -18,15 +18,21 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class LeisureSearchPage {
+    private static final String LOCATION_INPUT = "//input[@name='query']";
+    private static final String LOCATION_INPUT_SUGGESTION = "//a[@data-testid='search-bar-result']";
+    private static final String SUBMIT_BUTTON = "//button[@type='submit']";
+    private static final String LOWEST_PRICE_SORT_BUTTON = "//label[@for=':r1l:-lowest_price']";
+    private static final String ENTERTAINMENT_ITEM_BUTTON = "//h4[@data-testid='card-title']";
+
     @Step("Enter the location where the entertainment")
     public void clickOnLeisureSearch(String location) {
-        retryIfIntercepted(() -> $x("//input[@name='query']")
+        retryIfIntercepted(() -> $x(LOCATION_INPUT)
                 .shouldBe(Condition.visible)
                 .setValue(location));
-        retryIfIntercepted(() -> $x("//a[@data-testid='search-bar-result']")
+        retryIfIntercepted(() -> $x(LOCATION_INPUT_SUGGESTION)
                 .shouldBe(Condition.visible)
                 .click());
-        retryIfIntercepted(() -> $x("//button[@type='submit']")
+        retryIfIntercepted(() -> $x(SUBMIT_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
@@ -60,7 +66,7 @@ public class LeisureSearchPage {
                 .map(SelenideElement::getText)
                 .collect(Collectors.toList());
 
-        retryIfIntercepted(() -> $x("//label[@for=':r1l:-lowest_price']")
+        retryIfIntercepted(() -> $x(LOWEST_PRICE_SORT_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
 
@@ -80,7 +86,7 @@ public class LeisureSearchPage {
 
     @Step("Choose entertainment")
     public void clickOnEntertainment() {
-        retryIfIntercepted(() -> $x("//h4[@data-testid='card-title']")
+        retryIfIntercepted(() -> $x(ENTERTAINMENT_ITEM_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }

@@ -15,57 +15,66 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchResultPage {
+    private static final String FIRST_HOTEL_FROM_LIST_BUTTON = "//div[@data-testid='title']";
+    private static final String HOTEL_LOCATION_MAP_BUTTON = "//div[@class='b546c9ed2b']//button[@type='button']";
+    private static final String SEARCH_RESULT_TITLE_VALUE = "//h1[@aria-live='assertive']";
+    private static final String HOTElS_LOCATION_VALUE = "//div[@data-testid='property-card']//span[@data-testid='address']";
+    private static final String SORTING_DROPDOWN_BUTTON = "//button[@data-testid='sorters-dropdown-trigger']";
+    private static final String MAP_SECTION_INPUT = "//input[@type='search']";
+    private static final String SORT_BY_LOWEST_PRICE_ASC_BUTTON = "//button[@data-id='price']";
+    private static final String HOTELS_PRICES_VALUE = "//span[@data-testid='price-and-discounted-price']";
+
     @Step("Get the title of the search result")
-    public String getResultSearchTitle() {
-        return retryIfIntercepted(() -> $x(" //h1[@aria-live='assertive']")
+    public String getSearchResultTitle() {
+        return retryIfIntercepted(() -> $x(SEARCH_RESULT_TITLE_VALUE)
                 .shouldBe(Condition.visible)
                 .getText());
     }
 
     @Step("Get search results in which hotels are sorted by location")
-    public ElementsCollection getResultSearchThatHotelsSortedByLocation() {
-        return $$x("//div[@data-testid='property-card']//span[@data-testid='address']");
+    public ElementsCollection getHotelsLocationAfterSearchingByLocationApplied() {
+        return $$x(HOTElS_LOCATION_VALUE);
     }
 
     @Step("Choose a hotel")
     public void chooseHotel() {
-        retryIfIntercepted(() -> $x("//div[@data-testid='title']")
+        retryIfIntercepted(() -> $x(FIRST_HOTEL_FROM_LIST_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
 
     @Step("Click on the map")
     public void clickOnMap() {
-        $x("//div[@class='b546c9ed2b']//button[@type='button']")
+        $x(HOTEL_LOCATION_MAP_BUTTON)
                 .shouldBe(Condition.and("Clickable", Condition.visible, Condition.enabled))
                 .click();
     }
 
     @Step("The map opened")
     public boolean isMapOpened() {
-        return retryIfIntercepted(() -> $x("//input[@type='search']")
+        return retryIfIntercepted(() -> $x(MAP_SECTION_INPUT)
                 .shouldBe(Condition.visible, Duration.ofSeconds(20))
                 .isDisplayed());
     }
 
     @Step("Select sort by price in ascending order")
     public void chooseSortByPriceAscAndWaitWhilePricesUpdated() {
-        retryIfIntercepted(() -> $x("//button[@data-testid='sorters-dropdown-trigger']")
+        retryIfIntercepted(() -> $x(SORTING_DROPDOWN_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
 
         List<String> pricesBeforeRedrawn = getElementsTextList(getPrices());
 
-        retryIfIntercepted(() -> $x("//button[@data-id='price']")
+        retryIfIntercepted(() -> $x(SORT_BY_LOWEST_PRICE_ASC_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
 
-        waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", pricesBeforeRedrawn);
+        waitWhileElementsRedrawn(HOTELS_PRICES_VALUE, pricesBeforeRedrawn);
     }
 
     @Step("Get the prices")
     public ElementsCollection getPrices() {
-        return $$x("//span[@data-testid='price-and-discounted-price']");
+        return $$x(HOTELS_PRICES_VALUE);
     }
 
     public List<String> getElementsTextList(ElementsCollection elements) {
@@ -88,10 +97,9 @@ public class SearchResultPage {
     }
 
     public ElementsCollection getPricesAfterPricesUpdated(List<String> previousPrices) {
-        waitWhileElementsRedrawn("//span[@data-testid='price-and-discounted-price']", previousPrices);
+        waitWhileElementsRedrawn(HOTELS_PRICES_VALUE, previousPrices);
 
-        return $$x("//span[@data-testid='price-and-discounted-price']")
-                .shouldBe(CollectionCondition.sizeGreaterThan(0));
+        return $$x(HOTELS_PRICES_VALUE).shouldBe(CollectionCondition.sizeGreaterThan(0));
     }
 }
 

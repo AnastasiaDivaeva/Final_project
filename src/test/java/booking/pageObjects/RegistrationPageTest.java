@@ -22,7 +22,7 @@ public class RegistrationPageTest {
         homePage.clickOnRegisterButton();
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.enterIncorrectlyLogin();
-        Assert.assertTrue(registrationPage.notificationIncorrectLogin());
+        Assert.assertTrue(registrationPage.notificationAboutLoginIncorrectness());
     }
 
     @Test(description = "Checking registration with an incorrect password")
@@ -35,7 +35,7 @@ public class RegistrationPageTest {
         RegistrationPage registrationPage = new RegistrationPage();
         registrationPage.enterLoginInField();
         registrationPage.enterIncorrectlyPassword();
-        Assert.assertTrue(registrationPage.notificationIncorrectPassword());
+        Assert.assertTrue(registrationPage.notificationAboutPasswordIncorrectness());
     }
 
     @Test(description = "Checking registration with an incorrect password confirmation")

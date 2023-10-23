@@ -9,16 +9,19 @@ import static booking.utils.SelenideElementUtils.retryIfIntercepted;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BookingPage {
+    private static final String BOOKING_INFORMATION_CONTAINER = "//div[@class='bui-date-range bui-date-range--large bp-date-range']";
+    private static final String ACTUAL_PRICE_VALUE = "//span[@data-animate-price-group-name='bp_user_total_price']";
+
     @Step("Check if the reservation information is available")
     public boolean bookingInformation() {
         return retryIfIntercepted(() ->
-                $x("//div[@class='bui-date-range bui-date-range--large bp-date-range']").shouldBe(Condition.visible)
-                .isDisplayed());
+                $x(BOOKING_INFORMATION_CONTAINER).shouldBe(Condition.visible)
+                        .isDisplayed());
     }
 
     @Step("Get the actual price")
     public double getPrice() {
-        String priceText = retryIfIntercepted(() ->$x("//span[@data-animate-price-group-name='bp_user_total_price']")
+        String priceText = retryIfIntercepted(() -> $x(ACTUAL_PRICE_VALUE)
                 .shouldBe(Condition.visible)
                 .getText());
         String cleanPrice = priceText

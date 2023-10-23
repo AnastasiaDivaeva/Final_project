@@ -20,6 +20,21 @@ import static booking.utils.SelenideElementUtils.retryIfIntercepted;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
+    private static final String REGISTRATION_BUTTON = "//a[@data-testid='header-sign-up-button']";
+    private static final String CLOSE_POP_UP_BUTTON = "//button[@aria-label='Закрити інформацію про вхід в акаунт.']";
+    private static final String CALENDAR_BUTTON = "//div[@data-testid='searchbox-dates-container']";
+    private static final String SEARCH_DESTINATION_BUTTON = "//div[@data-testid='destination-container'] ";
+    private static final String DESTINATIONS_SUGGESTION = "//ul[@data-testid='autocomplete-results-options']";
+    private static final String SEARCH_CITY_INPUT = "//input[@class='eb46370fe1']";
+    private static final String SEARCH_BUTTON = "//button[@type='submit']";
+    private static final String CAR_RENTAL_BUTTON = "//a[@id='cars']";
+    private static final String CHANGE_LANGUAGE_BUTTON = "//button[@data-testid='header-language-picker-trigger']";
+    private static final String TITLE_VALUE = "//span[@data-testid='herobanner-title1']";
+    private static final String LEISURE_PAGE_BUTTON = "//a[@id='attractions']";
+    private static final String SUPPORT_BUTTON = "//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']";
+    private static final String CURRENCY_SELECTION_BUTTON = "//button[@data-testid='header-currency-picker-trigger']";
+    private static final String SELECT_EUR_CURRENCY = "//div[text()='EUR']";
+
 
     @Step("Open the home page")
     public void openHomePage() {
@@ -29,7 +44,7 @@ public class HomePage {
 
     @Step("Click on the registration button")
     public void clickOnRegisterButton() {
-        retryIfIntercepted(() -> $x("//a[@data-testid='header-sign-up-button']")
+        retryIfIntercepted(() -> $x(REGISTRATION_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
@@ -50,7 +65,7 @@ public class HomePage {
                     break;
                 }
                 try {
-                    $x("//button[@aria-label='Закрити інформацію про вхід в акаунт.']").click();
+                    $x(CLOSE_POP_UP_BUTTON).click();
                     return;
                 } catch (ElementNotFound | StaleElementReferenceException ignored) {
                 }
@@ -60,31 +75,31 @@ public class HomePage {
 
     @Step("Close the calendar")
     public void closeCalendar() {
-        retryIfIntercepted(() -> $x("//div[@data-testid='searchbox-dates-container']")
+        retryIfIntercepted(() -> $x(CALENDAR_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
 
     @Step("Click on the search destination button")
     public void clickOnSearchForDestination() {
-        retryIfIntercepted(() -> $x("//div[@data-testid='destination-container'] ")
+        retryIfIntercepted(() -> $x(SEARCH_DESTINATION_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
 
     @Step("Find pop-ups with popular destinations")
     public boolean findPopUpsWithPopularDestinations() {
-        return retryIfIntercepted(() -> $x("//ul[@data-testid='autocomplete-results-options']")
+        return retryIfIntercepted(() -> $x(DESTINATIONS_SUGGESTION)
                 .shouldBe(Condition.visible)
                 .isDisplayed());
     }
 
     @Step("Search for a city")
     public void searchCity(String city) {
-        retryIfIntercepted(() -> $x("//div[@data-testid='destination-container']")
+        retryIfIntercepted(() -> $x(SEARCH_DESTINATION_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
-        retryIfIntercepted(() -> $x("//input[@class='eb46370fe1']")
+        retryIfIntercepted(() -> $x(SEARCH_CITY_INPUT)
                 .shouldBe(Condition.visible)
                 .setValue(city));
     }
@@ -108,7 +123,7 @@ public class HomePage {
 
     @Step("Click on search button")
     public void clickSearchButton() {
-        retryIfIntercepted(() -> $x("//button[@type='submit']")
+        retryIfIntercepted(() -> $x(SEARCH_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
@@ -116,14 +131,14 @@ public class HomePage {
     @Step("Click on car rental button")
     public void clickCarRentalButton() {
         retryIfIntercepted(() ->
-                $x("//a[@id='cars']")
+                $x(CAR_RENTAL_BUTTON)
                         .shouldBe(Condition.visible)
                         .click());
     }
 
     @Step("Select another language")
     public void chooseLanguage(String language) {
-        retryIfIntercepted(() -> $x("//button[@data-testid='header-language-picker-trigger']")
+        retryIfIntercepted(() -> $x(CHANGE_LANGUAGE_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
         retryIfIntercepted(() -> $x("//button[.//text()[contains(., '" + language + "')]][1]")
@@ -133,14 +148,14 @@ public class HomePage {
 
     @Step("Get text after changing the language")
     public String getTextAfterChangeLanguage() {
-        return $x("//span[@data-testid='herobanner-title1']")
+        return $x(TITLE_VALUE)
                 .shouldHave(Condition.exactText("Find your next stay"), Duration.ofSeconds(15))
                 .getText();
     }
 
     @Step("Click on the leisure")
     public void clickLeisure() {
-        retryIfIntercepted(() -> $x("//a[@id='attractions']")
+        retryIfIntercepted(() -> $x(LEISURE_PAGE_BUTTON)
                 .shouldBe(Condition.visible)
                 .click());
     }
@@ -148,7 +163,7 @@ public class HomePage {
     @Step("Click on support button")
     public void clickOnSupportButton() {
         retryIfIntercepted(() ->
-                $x("//a[@data-ga-track='click|Click|Action: index|hc_entrypoint_footer_navigation']")
+                $x(SUPPORT_BUTTON)
                         .shouldBe(Condition.visible)
                         .click());
     }
@@ -156,11 +171,11 @@ public class HomePage {
     @Step("Select your currency")
     public void selectYourCurrency() {
         retryIfIntercepted(() ->
-                $x("//button[@data-testid='header-currency-picker-trigger']")
+                $x(CURRENCY_SELECTION_BUTTON)
                         .shouldBe(Condition.visible)
                         .click());
         retryIfIntercepted(() ->
-                $x("//div[text()='EUR']")
+                $x(SELECT_EUR_CURRENCY)
                         .shouldBe(Condition.visible)
                         .click());
     }

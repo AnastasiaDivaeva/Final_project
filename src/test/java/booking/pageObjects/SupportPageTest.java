@@ -21,6 +21,6 @@ public class SupportPageTest {
         SupportPage supportPage=new SupportPage();
         supportPage.clickOnContinueWithoutAccount();
 
-        Assert.assertTrue(supportPage.supportPageOpens());
+        Assert.assertTrue(supportPage.supportPageIsOpened());
     }
 }

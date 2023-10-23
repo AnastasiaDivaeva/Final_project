@@ -51,7 +51,7 @@ public class DetailPageTest {
         DetailPage detailPage = new DetailPage();
         detailPage.clickOnReviewsButton();
 
-        Assert.assertTrue(detailPage.windowWithReviewsOpened());
+        Assert.assertTrue(detailPage.reviewsSectionIsOpened());
     }
 }
 
