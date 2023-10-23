@@ -32,6 +32,7 @@ public class CustomChromeDriver implements WebDriverProvider {
         chromeOptions.addArguments("disable-blink-features=AutomationControlled");
         chromeOptions.addArguments("--headless=new");
         chromeOptions.addArguments("--window-size=2560,1440");
+        chromeOptions.addArguments("--incognito");
         capabilities.asMap().forEach(chromeOptions::setCapability);
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -40,6 +41,7 @@ public class CustomChromeDriver implements WebDriverProvider {
         driver.executeScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})");
         driver.executeCdpCommand("Network.setUserAgentOverride", userAgentParams);
         driver.executeCdpCommand("Page.addScriptToEvaluateOnNewDocument", removeAutomationProperties);
+        driver.manage().deleteAllCookies();
         return driver;
     }
 }

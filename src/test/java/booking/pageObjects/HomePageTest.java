@@ -1,5 +1,6 @@
 package booking.pageObjects;
 
+import booking.utils.LanguageUtils;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -29,7 +30,7 @@ public class HomePageTest {
         HomePage homePage = new HomePage();
         homePage.openHomePage();
         homePage.closePopUp();
-        homePage.chooseAnotherLanguage();
+        homePage.chooseLanguage(LanguageUtils.ENGLISH_US);
         String actualTitle = homePage.getTextAfterChangeLanguage();
         Assert.assertEquals(actualTitle, "Find your next stay");
     }

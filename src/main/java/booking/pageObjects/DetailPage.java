@@ -1,5 +1,6 @@
 package booking.pageObjects;
 
+import booking.utils.CurrenciesUtils;
 import booking.utils.StringUtils;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -42,7 +43,7 @@ public class DetailPage {
             rawPriceValue = retryIfIntercepted(priceWithoutDiscount::getText);
         }
         String cleanPrice = rawPriceValue
-                .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
+                .replaceAll(CurrenciesUtils.UAH, StringUtils.EMPTY_STRING)
                 .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING);
         return Integer.parseInt(cleanPrice);
     }

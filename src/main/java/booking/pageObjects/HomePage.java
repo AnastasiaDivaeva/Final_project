@@ -122,11 +122,11 @@ public class HomePage {
     }
 
     @Step("Select another language")
-    public void chooseAnotherLanguage() {
+    public void chooseLanguage(String language) {
         retryIfIntercepted(() -> $x("//button[@data-testid='header-language-picker-trigger']")
                 .shouldBe(Condition.visible)
                 .click());
-        retryIfIntercepted(() -> $x("//button[.//text()[contains(., 'English (US)')]][1]")
+        retryIfIntercepted(() -> $x("//button[.//text()[contains(., '" + language + "')]][1]")
                 .shouldBe(Condition.visible)
                 .click());
     }

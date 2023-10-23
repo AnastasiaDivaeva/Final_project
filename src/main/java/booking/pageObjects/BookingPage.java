@@ -1,5 +1,6 @@
 package booking.pageObjects;
 
+import booking.utils.CurrenciesUtils;
 import booking.utils.StringUtils;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
@@ -21,7 +22,7 @@ public class BookingPage {
                 .shouldBe(Condition.visible)
                 .getText());
         String cleanPrice = priceText
-                .replaceAll(StringUtils.UAH, StringUtils.EMPTY_STRING)
+                .replaceAll(CurrenciesUtils.UAH, StringUtils.EMPTY_STRING)
                 .replaceAll(StringUtils.WHITE_SPACE, StringUtils.EMPTY_STRING)
                 .replaceAll(StringUtils.COMMA, StringUtils.DOT);
         return Double.parseDouble(cleanPrice);

@@ -1,6 +1,5 @@
 package booking.pageObjects;
 
-import booking.utils.StringUtils;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -13,8 +12,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static booking.utils.CurrenciesUtils.EURO;
+import static booking.utils.CurrenciesUtils.UAH;
 import static booking.utils.StringUtils.EMPTY_STRING;
-import static booking.utils.StringUtils.UAH;
 import static booking.utils.StringUtils.WHITE_SPACE;
 
 
@@ -128,7 +128,7 @@ public class SearchResultPageTest {
                         .replaceAll(WHITE_SPACE, EMPTY_STRING))
                 .collect(Collectors.toList());
 
-        currenciesList.forEach(currencyValue -> Assert.assertEquals(currencyValue, StringUtils.EURO));
+        currenciesList.forEach(currencyValue -> Assert.assertEquals(currencyValue, EURO));
     }
 }
 
